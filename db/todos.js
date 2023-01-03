@@ -1,0 +1,115 @@
+const client = require('./index')
+
+
+const createTodo = async ({name, description, due_date, userId, isComplete}) => {
+    try {
+        const {rows: [todo]} = await client.query(`
+        INSERT INTO todos (name, description, due_date, "userId", "isComplete")
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING *;
+        `, [name, description, due_date, userId, isComplete])
+        return todo
+    }catch(error) {
+        console.log("There was an error creating the todo")
+        throw error
+    }
+}
+const getAllTodos = async() => {
+    try {
+        const {rows: todos} = await client.query(`
+            SELECT todos.*, users.username AS "creatorName" 
+            FROM todos
+            JOIN users
+            ON todos."userId"=users.id
+        `, )
+        todos.forEach(todo => todo['notes'] = [])
+        const {rows: notes} = await client.query(`
+        SELECT * FROM notes
+        `)
+        for(let i = 0; i < notes.length; i++) {
+            for(let j = 0; j < todos.length;j ++) {
+                if(notes[i].todoId === todos[j].id) {
+                    todos[j].notes.push(notes[i])
+                }else {
+                    continue
+                }
+            }
+        }
+        console.log(todos)
+        }catch(error) {
+            console.log("There was an error getting notes and todos")
+            throw error
+        }
+    }
+
+    const getAllCompleteTodos = async() => {
+        try {
+            const {rows: todos} = await client.query(`
+            SELECT todos.*, users.username as "creatorName"
+            FROM todos
+            JOIN users ON todos."userId"=users.id
+            WHERE "isComplete"=true
+            `)
+            console.log(todos)
+        }catch(error) {
+            throw error
+        }
+    }
+
+
+const getTodosByUserId = async(id) => {
+    try {
+    const {rows: todos} = await client.query(`
+        SELECT todos.*, users.username AS "creatorName" 
+        FROM todos
+        JOIN users
+        ON todos."userId"=users.id
+        WHERE users.id=$1
+    `, [id])
+    todos.forEach(todo => todo['notes'] = [])
+    const {rows: notes} = await client.query(`
+    SELECT * FROM notes
+    `)
+    for(let i = 0; i < notes.length; i++) {
+        for(let j = 0; j < todos.length;j ++) {
+            if(notes[i].todoId === todos[j].id) {
+                todos[j].notes.push(notes[i])
+            }else {
+                continue
+            }
+        }
+    }
+    return todos
+    }catch(error) {
+        console.log("There was an error getting notes and todos")
+        throw error
+    }
+}
+
+const updateTodo = async({id, ...fields}) => {
+    const keys = Object.keys(fields)
+    console.log(keys)
+    const beforeString = keys.map((key, index) => `${key}=$${index+2}`)
+    const setString = beforeString.join(', ')
+    console.log(setString)
+    try {
+     const {rows: [todo]} = await client.query(`
+     UPDATE todos
+     SET ${setString}
+     WHERE id=$1
+     RETURNING *;
+     `,[id, ...Object.values(fields)])
+     console.log("Udpated todo", todo)
+     return todo
+    }catch(error) {
+        console.log('There was an error updating the Todo')
+        throw error
+    }
+}
+module.exports = {
+    createTodo,
+    getTodosByUserId,
+    getAllTodos,
+    updateTodo,
+    getAllCompleteTodos
+}
