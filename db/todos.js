@@ -3,6 +3,7 @@ const client = require('./index')
 
 const createTodo = async ({name, description, due_date, userId, isComplete}) => {
     try {
+        console.log("Starting to create todo")
         const {rows: [todo]} = await client.query(`
         INSERT INTO todos (name, description, due_date, "userId", "isComplete")
         VALUES ($1, $2, $3, $4, $5)
@@ -11,6 +12,7 @@ const createTodo = async ({name, description, due_date, userId, isComplete}) => 
         return todo
     }catch(error) {
         console.log("There was an error creating the todo")
+        console.log(error)
         throw error
     }
 }
@@ -106,10 +108,32 @@ const updateTodo = async({id, ...fields}) => {
         throw error
     }
 }
+
+
+const deleteTodo = async(id) => {
+    try {
+        //First delete all the notes on the todo
+        const {rows: notes} = await client.query(`
+        DELETE FROM notes
+        WHERE "todoId"=$1
+        RETURNING *;
+        `, [id])
+        //Then delete the todo itself
+        const {rows: todos} = await client.query(`
+        DELETE FROM todos
+        WHERE id=$1
+        RETURNING *;
+        `, [id])
+        return {todo: todos, notes:notes}
+    }catch(error) {
+        throw error
+    }
+}
 module.exports = {
     createTodo,
     getTodosByUserId,
     getAllTodos,
     updateTodo,
-    getAllCompleteTodos
+    getAllCompleteTodos,
+    deleteTodo
 }
