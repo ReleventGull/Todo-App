@@ -33,13 +33,12 @@ const { JWT_SECRET } = process.env;
 router.use(async (req, res, next) => {
     const prefix = 'Bearer ';
     const auth = req.header('Authorization');
-
     if(!auth) {
         next ()
     }else if (auth.startsWith(prefix)) {
         const token = auth.slice(prefix.length)
         try {
-            const {id, username} = jwt.verify(token, JWT_SECRET)
+            const {username} = jwt.verify(token, JWT_SECRET)
             if (username) {
                 req.user = await getUserByUsername(username)
                 next ()
@@ -59,4 +58,6 @@ router.use(async (req, res, next) => {
 const userRouter = require("./users");
 router.use("/users", userRouter);
 
+const todoRouter = require('./todos')
+router.use('/todos', todoRouter)
 module.exports = router;
