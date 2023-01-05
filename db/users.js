@@ -22,7 +22,6 @@ const createUser = async({username, password}) => {
 
 const getUserByUsername  = async (username) => {
     try{
-        console.log("I got here!!!!!!!!!!!!!!!!!!!!")
     const {rows: [user]} = await client.query(`
     SELECT * FROM users
     WHERE username=$1;
@@ -30,6 +29,7 @@ const getUserByUsername  = async (username) => {
     if(!user) {
         return false
     }
+    delete user.password
     return user
     }catch(error) {
         console.log("There was an error getting the user by their username")
@@ -63,7 +63,6 @@ const getUser = async({username, password}) => {
             return false
         }
         delete user.password
-        
         return user
     }catch(error) {
         console.log("There was an error getting the user")
