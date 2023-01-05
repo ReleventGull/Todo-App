@@ -38,6 +38,7 @@ const getAllTodos = async() => {
             }
         }
         console.log(todos)
+        return todos
         }catch(error) {
             console.log("There was an error getting notes and todos")
             throw error
