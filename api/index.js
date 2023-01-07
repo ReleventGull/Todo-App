@@ -4,31 +4,7 @@ const jwt = require("jsonwebtoken");
 const { getUserByUsername } = require("../db/users");
 const { JWT_SECRET } = process.env;
 
-// router.use(async (req, res, next) => {
-//   try {
-//     const auth = req.header("Authorization");
-//     if (!auth) {
-//       next();
-//     } else {
-//       const [_, token] = auth.split(' ');
-//       console.log(token)
-//       const { id, username } = jwt.verify(token, JWT_SECRET);
-//       console.log(username)
-//       if (!username) {
-//         next({
-//           error: "InvalidToken",
-//           name: "TokenError",
-//           message: "Token is invalid",
-//         });
-//       } else {
-//         req.user = await getUserByUsername(username);
-//         next();
-//       }
-//     }
-//   }catch (error) {
-//     throw error;
-//   }
-// });
+
 
 router.use(async (req, res, next) => {
     const prefix = 'Bearer ';
