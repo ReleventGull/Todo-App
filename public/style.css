@@ -1,0 +1,23 @@
+body {
+    margin: 0
+}
+header {
+    display: flex;
+    background-color: black;
+    color: white;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+header nav {
+    text-decoration: none;
+    width: 200px;
+    display: flex;
+    justify-content: space-around;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+}
