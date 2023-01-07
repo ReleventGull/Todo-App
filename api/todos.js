@@ -1,7 +1,7 @@
 const {requireUser} = require('./utils')
 const express = require('express')
 const todoRouter = express.Router()
-const {getAllTodos, createTodo, getTodoById, updateTodo} = require('../db/todos')
+const {getAllTodos, createTodo, getTodoById, updateTodo, deleteTodo} = require('../db/todos')
 
 
 //Gets all the todos
@@ -49,6 +49,27 @@ todoRouter.patch('/:toDoId', requireUser, async(req, res, next) => {
         
     }catch(error) {
 
+    }
+})
+
+todoRouter.delete('/:toDoId', requireUser, async(req, res, next) => {
+    try{
+        const{toDoId} = req.params
+        const foundTodo = await getTodoById({id: toDoId})
+        console.log(foundTodo)
+        if(foundTodo.userId !== req.user.id) {
+            next({
+                error: "AccessDenied",
+                name: "ValidationError",
+                message: "You do not have permission to delete this todo!"
+            })
+        }else {
+            const deletedTodo = await deleteTodo(toDoId)
+            res.send(deletedTodo)
+        }
+    }catch(error) {
+        console.error(error)
+        throw error
     }
 })
 
