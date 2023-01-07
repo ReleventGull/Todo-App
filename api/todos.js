@@ -36,7 +36,7 @@ todoRouter.patch('/:toDoId', requireUser, async(req, res, next) => {
         const {toDoId} = req.params
         const foundTodo = await getTodoById({id:toDoId})
         if(foundTodo.userId != req.user.id) {
-            next({
+            res.status(402).send({
                 error: "AccessDenied",
                 name: "ValidationError",
                 message: "You do not have permission to edit this todo!"
@@ -58,7 +58,7 @@ todoRouter.delete('/:toDoId', requireUser, async(req, res, next) => {
         const foundTodo = await getTodoById({id: toDoId})
         console.log(foundTodo)
         if(foundTodo.userId !== req.user.id) {
-            next({
+            res.status(402).send({
                 error: "AccessDenied",
                 name: "ValidationError",
                 message: "You do not have permission to delete this todo!"
