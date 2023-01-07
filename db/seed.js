@@ -87,10 +87,8 @@ await getTodosByUserId(2)
 // await getAllTodos()
 await initalUpdatedTodos()
 await initialUpdateNotes()
-
+await getAllTodos()
 // await getAllCompleteTodos()
-await deleteTodo(2)
-
 }
 
 
