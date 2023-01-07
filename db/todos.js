@@ -158,5 +158,6 @@ module.exports = {
     updateTodo,
     getAllCompleteTodos,
     deleteTodo,
-    getTodoById
+    getTodoById,
+    getTodosByUserId
 }
