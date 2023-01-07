@@ -2,7 +2,9 @@ const express = require("express");
 const userRouter = express.Router();
 const jwt = require("jsonwebtoken");
 const { getUserByUsername, createUser, getUser} = require("../db/users");
+const {getTodosByUserId} = require('../db/todos')
 const {JWT_SECRET} = process.env
+const {requireUser} = require('./utils')
 
 
 
@@ -51,6 +53,14 @@ userRouter.post('/login', async(req, res, next) => {
     }
 })
 
+userRouter.get('/me', requireUser, async(req, res, next) => {
+  try {
+      const userTodos = await getTodosByUserId(req.user.id)
+      res.send(userTodos)
+  }catch(error) {
+      console.error(error)
+  }
+})
 
 
 
