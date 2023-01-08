@@ -14,7 +14,7 @@ userRouter.post("/register", async (req, res, next) => {
     const { username, password } = req.body;
     const existingUser = await getUserByUsername(username);
     if (existingUser) {
-      next({
+      res.status(401).send({
         error: "User already Exists",
         name: "InvalidUsername",
         message: "A user by that username already exists",
@@ -36,9 +36,10 @@ userRouter.post("/register", async (req, res, next) => {
 userRouter.post('/login', async(req, res, next) => {
     try {
         const {username, password} = req.body
+        console.log(username, password)
         const _user = await getUser({username: username, password: password})
         if(!_user) {
-            next({
+            res.status(401).send({
                 error:"IncorrectCredentials",
                 name:"CredentialsError",
                 message:"Username or password is not correct"
