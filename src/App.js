@@ -3,17 +3,20 @@ import {Link, Route, Routes, useNavigate  } from 'react-router-dom'
 import {Home, Todos, Login, SingleTodo} from './components/index'
 import { fetchUserTodos } from './api'
 const App = () => {
-    const [todos, setTodos] = useState([])
     const [token, setToken] = useState(localStorage.getItem('token') || '')
+    const [todos, setTodos] = useState([])
+    const [user, setUser] = useState([])
     const [featuredTodo, setFeaturedTodo] = useState()
+    const [submit, setSubmit] = useState(false)
+    
     const navigate = useNavigate()
 
     async function getUserTodos() {
         const result = await fetchUserTodos({token: token})
-        setTodos(result)
+        setTodos(result.todos)
+        setUser(result.user)
         return result
     }
-    
     useEffect(() => {
         if(!token) {
             setTodos()
@@ -22,7 +25,7 @@ const App = () => {
             navigate('/')
             getUserTodos()
         }
-    }, [token])
+    }, [token, submit])
     
     return (
         <>

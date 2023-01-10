@@ -43,6 +43,7 @@ const getUserById  = async (id) => {
     SELECT * FROM users
     WHERE id=$1;
     `, [id])
+    delete user.id
     return user
     }catch(error) {
         console.log("There was an error getting the user by their username")
