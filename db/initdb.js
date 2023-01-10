@@ -29,7 +29,7 @@ const createTables = async() => {
             id SERIAL PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
             description VARCHAR(255) NOT NULL,
-            due_date INTEGER NOT NULL,
+            due_date VARCHAR(255) NOT NULL,
             "userId" INTEGER references users(id),
             "isComplete" BOOLEAN default false
         );

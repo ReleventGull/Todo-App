@@ -57,11 +57,14 @@ userRouter.post('/login', async(req, res, next) => {
 userRouter.get('/me', requireUser, async(req, res, next) => {
   try {
       const userTodos = await getTodosByUserId(req.user.id)
+      console.log(userTodos)
       res.send(userTodos)
   }catch(error) {
       console.error(error)
   }
 })
+
+
 
 
 
