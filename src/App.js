@@ -1,6 +1,6 @@
 import React, {useEffect, useState,} from 'react'
 import {Link, Route, Routes, useNavigate  } from 'react-router-dom'
-import {Home, Todos, Login, SingleTodo} from './components/index'
+import {Home, Todos, Login, SingleTodo, CreateTodo} from './components/index'
 import { fetchUserTodos } from './api'
 const App = () => {
     const [token, setToken] = useState(localStorage.getItem('token') || '')
@@ -13,16 +13,17 @@ const App = () => {
 
     async function getUserTodos() {
         const result = await fetchUserTodos({token: token})
+        console.log(result)
         setTodos(result.todos)
-        setUser(result.user)
-        return result
+        console.log('Here they are', todos)
     }
     useEffect(() => {
         if(!token) {
             setTodos()
             navigate('/login')
         }else {
-            navigate('/')
+            console.log('i ran')
+            setSubmit(false)
             getUserTodos()
         }
     }, [token, submit])
@@ -37,6 +38,7 @@ const App = () => {
             {token ?
             <>
             <Link to='todos'>MyTodos</Link>
+            <Link to='createTodo'>Create Todo</Link>
             <button onClick={() => {setToken(''), localStorage.removeItem('token')}}>Logout</button>
             </>
             :
@@ -51,7 +53,8 @@ const App = () => {
         <Route path='/' element={<Home />}/>
         <Route path='todos/:id' element={<SingleTodo token={token}/>}/>
         <Route path='todos' element={<Todos setFeaturedTodo={setFeaturedTodo} token={token} todos={todos} />}/>
-       <Route path='login'  element={<Login setToken={setToken}/>}/>
+        <Route path='login'  element={<Login setToken={setToken}/>}/>
+        <Route path='createTodo' element={<CreateTodo setSubmit={setSubmit} token={token}/>} />
        </Routes>
         </>
        

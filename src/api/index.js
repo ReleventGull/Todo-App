@@ -54,6 +54,29 @@ export const registerUser = async ({username, password}) => {
         console.error("There was an error registering the user", error)
     }
 }
+export const createTodo = async({name, token, description, due_date}) => {
+    try {
+        const response = await fetch(`${BASE_URL}/todos`,{
+            method: "POST",
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name,
+                description: description,
+                due_date: due_date
+            })
+        }).then(result => result.json())
+        console.log(response)
+        return response
+    }catch(error) {
+        console.error("There was an error creating the todo in the api call", error)
+        throw error
+    }
+}
+
+
 
 export const getSingleTodo = async({id, token}) => {
     try {
@@ -68,6 +91,7 @@ export const getSingleTodo = async({id, token}) => {
         const result = await response.json()
         return result
     }catch(error){
+        console.error("There was an error getting the todo by id", error)
         throw error
     }
     

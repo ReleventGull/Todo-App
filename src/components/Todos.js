@@ -5,7 +5,7 @@ import {default as Todoitem} from './TodoItem'
 
 const Todos = ({todos, token, }) => {
     const navigate = useNavigate()
-    console.log(todos)
+
     useEffect(() => {
         if (!token) {
             navigate('/login')

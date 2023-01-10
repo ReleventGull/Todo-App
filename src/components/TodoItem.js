@@ -8,7 +8,7 @@ const Todoitem = ({todo, viewButton}) => {
        <div key={todo.id} className='todoCard'>
             <h1>{todo.name}</h1>
             <h2>{todo.description}</h2>
-            <h3>{new Date(todo.due_date)}</h3>
+            <h3>{todo.due_date}</h3>
             {viewButton}
        </div>
     )
