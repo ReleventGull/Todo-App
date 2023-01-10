@@ -51,7 +51,7 @@ const App = () => {
        </header>
        <Routes>
         <Route path='/' element={<Home />}/>
-        <Route path='todos/:id' element={<SingleTodo token={token}/>}/>
+        <Route path='todos/:id' element={<SingleTodo todos={todos} token={token}/>}/>
         <Route path='todos' element={<Todos setFeaturedTodo={setFeaturedTodo} token={token} todos={todos} />}/>
         <Route path='login'  element={<Login setToken={setToken}/>}/>
         <Route path='createTodo' element={<CreateTodo setSubmit={setSubmit} token={token}/>} />
