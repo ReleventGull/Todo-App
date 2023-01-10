@@ -19,11 +19,32 @@ const createTodo = async ({name, description, due_date, userId}) => {
 const getTodoById = async ({id}) => {
     try {
         console.log(id)
-    const {rows: [todo]} = await client.query(`
-    SELECT * FROM todos
-    WHERE id=$1;
+    const {rows: todos} = await client.query(`
+    SELECT todos.*, users.username AS "creatorName", notes.id AS note_id, notes.description AS notedesc
+    FROM todos
+    JOIN users ON todos."userId"=users.id
+    LEFT JOIN notes ON todos.id=notes."todoId"
+    WHERE todos.id=$1;
     `, [id])
-    return todo
+    console.log('the todo here', todos)
+    
+    let newTodo = {}
+    newTodo['notes'] =[]
+    newTodo['creatorName'] = todos[0].creatorName
+    newTodo['id'] = todos[0].id
+    newTodo['name'] = todos[0].name
+    newTodo['description'] = todos[0].description
+    newTodo['due_date'] = todos[0].due_date
+    newTodo['userId'] = todos[0].userId
+    newTodo['isComplete'] = todos[0].isComplete
+    for(let i = 0; i < todos.length; i++) {
+        if(todos[i].desc == null) {
+            continue
+        }else {
+            newTodo.notes.push({id:todos[i].note_id, description: todos[i].notedesc})
+        }
+    }
+    return newTodo
     }catch(error) {
     throw error
     }
@@ -44,6 +65,7 @@ const getAllTodos = async() => {
             console.log(existingToDo, i)
             let newTodoObject = {}
             newTodoObject.id = todos[i].id
+
             newTodoObject.name = todos[i].name
             newTodoObject.description = todos[i].description
             newTodoObject.due_date = todos[i].due_date

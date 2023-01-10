@@ -22,21 +22,21 @@ const createInitialTodos = async() => {
         await createTodo({
             name: "List stuff",
             description: "Have it done by that day",
-            due_date: 231241242,
+            due_date: 'Feburary 17 2023',
             userId: 1,
             isComplete: true
             })
        await createTodo({
             name: "Clean Garage",
             description: "Have garage done by tomorrow",
-            due_date: 4112242,
+            due_date: 'Janurary 17 2023',
             userId: 2,
             isComplete: true
             })
         await createTodo({
             name: "Have dinner with mom",
             description: "Have dinner with mom tomorrow at noon",
-            due_date: 413212242,
+            due_date: 'December 17 2023',
             userId: 2,
             isComplete: false
            })

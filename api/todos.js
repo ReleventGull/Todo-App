@@ -15,6 +15,18 @@ todoRouter.get('/', async(req, res, next) => {
     }
 })
 
+todoRouter.get('/:todoId', async(req, res, next) => {
+    try {
+    const {todoId} = req.params
+    console.log(todoId)
+    const todo = await getTodoById({id: todoId})
+    console.log(todo)
+    res.send(todo)
+    }catch(error) {
+        throw error
+    }
+})
+
 todoRouter.post('/', requireUser,  async(req, res, next) => {
     try {
     let updateFields = {}
@@ -34,6 +46,7 @@ todoRouter.post('/', requireUser,  async(req, res, next) => {
 todoRouter.patch('/:toDoId', requireUser, async(req, res, next) => {
     try {
         const {toDoId} = req.params
+        console.log(toDoId)
         const foundTodo = await getTodoById({id:toDoId})
         if(foundTodo.userId != req.user.id) {
             res.status(402).send({
@@ -48,7 +61,6 @@ todoRouter.patch('/:toDoId', requireUser, async(req, res, next) => {
         }
         
     }catch(error) {
-
     }
 })
 
@@ -72,6 +84,8 @@ todoRouter.delete('/:toDoId', requireUser, async(req, res, next) => {
         throw error
     }
 })
+
+
 
 
 module.exports = todoRouter
