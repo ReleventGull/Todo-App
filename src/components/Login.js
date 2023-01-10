@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 import {loginUser, registerUser} from '../api/index'
 
 
@@ -13,7 +14,7 @@ const Login = ({setToken}) => {
     const [password, setPassword] = useState('')
     const [password2, setPassword2] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
-    
+    const navigate = useNavigate()
     
     const handleLogin = async(event) => {
     event.preventDefault()
@@ -27,6 +28,7 @@ const Login = ({setToken}) => {
         setErrorMessage('')
         localStorage.setItem('token', response.token)
         setToken(response.token)
+        navigate('/')
     }
     }
 
@@ -44,6 +46,7 @@ const Login = ({setToken}) => {
             setErrorMessage('')
             setToken(response.token)
             localStorage.setItem('token', response.token)
+            navigate('/')
         }
        
     }
