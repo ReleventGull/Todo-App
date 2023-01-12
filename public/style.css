@@ -78,7 +78,7 @@ header button {
     align-items: center;
     justify-content: space-around;
     background-color: #F5EDCE;
-    color: #850000;
+    color: #c52a2a;
     margin-top: 10px;
     margin-bottom: 10px;
     width: 750px;
@@ -92,6 +92,26 @@ header button {
     text-align: center;
     width: 200px;
  
+}
+
+.todo-icons {
+    align-self: flex-end;
+    transition: .3s;
+    margin-bottom: 2px;
+}
+
+
+.todo-icons:hover {
+    transform: scale(1.1);
+    transition: .3s;
+}
+
+.icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%
 }
 
 /****************************Create Todd*********************/

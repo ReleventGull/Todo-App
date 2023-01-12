@@ -2,8 +2,9 @@ import React, {useEffect, useState,} from 'react'
 import {useNavigate, Link} from 'react-router-dom'
 import {default as Todoitem} from './TodoItem'
 import { fetchUserTodos } from '../api'
-
-
+import trashcan from './images/trashcan.png'
+import viewButton from './images/view.png'
+ 
 const Todos = ({ token }) => {
     const [todos, setTodos] = useState([])
     const navigate = useNavigate()
@@ -61,7 +62,11 @@ const Todos = ({ token }) => {
             
         {
            !todos? null :  todos.map((todo) => 
-                <Todoitem viewButton={<Link to={`${todo.id}`}>View</Link>} todo={todo}/>
+                <Todoitem 
+                viewButton={<Link className='todo-icons' to={`${todo.id}`}><img src={viewButton}/></Link>} todo={todo}>
+                <img onClick={() => console.log("I was clicked at", todo.id)}
+                className='todo-icons' src={trashcan}/>
+                </Todoitem >
             )
         }
              </div>
