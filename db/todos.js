@@ -73,7 +73,7 @@ const getTodosByUserId = async(id) => {
     JOIN users ON todos."userId"=users.id
     WHERE users.id=$1
     `, [id])
-
+        
     return todos
     }catch(error) {
         console.log("There was an error getting notes and todos")
