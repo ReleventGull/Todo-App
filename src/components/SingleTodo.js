@@ -32,7 +32,7 @@ const SingleTodo = ({token, todos}) => {
         todo ? 
        <div className='singlePage'>
          <div className='sinlgeBox'>
-            <div>
+            <div className='todoBox'>
                 <h3>{todo.name}</h3>
                 <h2>{todo.description}</h2>
                 <div>{todo.due_date}</div>
@@ -40,7 +40,7 @@ const SingleTodo = ({token, todos}) => {
             </div>
             {addNote 
             ? 
-            <form onSubmit={handleNoteSubmit}>
+            <form className='noteForm' onSubmit={handleNoteSubmit}>
                 <h2>Description</h2>
                 <input  value={noteDescription} onChange={(event) => setNoteDescription(event.target.value)}></input>
                 <button type='submit'>Add</button>
