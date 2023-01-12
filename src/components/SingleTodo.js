@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
 import {getSingleTodo, createNote} from '../api/index'
+import {default as NoteItem} from './NoteItem'
 
 const SingleTodo = ({token, todos}) => {
     const [todo, setTodo] = useState({})
     const [addNote, setAddNote] = useState(false)
     const [noteDescription, setNoteDescription] = useState('')
-    
+    console.log('The notes here',todo.notes)
     const {id} = useParams()
     
     const fetchSingleTodo = async() => {
-        console.log('Req param')
         const singleTodo = await getSingleTodo({id: id, token, token})
         setTodo(singleTodo)
     }
@@ -20,10 +20,13 @@ const SingleTodo = ({token, todos}) => {
     }, [])
     
     const handleNoteSubmit = async(event) => {
-        console.log("I was submitted")
         event.preventDefault()
         const response = await createNote({id: todo.id, token: token, description: noteDescription})
-        console.log(response)
+        if(response.error) {
+            console.log("There was an error")
+        }else {
+            fetchSingleTodo()
+        }
     }
     return (
         todo ? 
@@ -44,6 +47,11 @@ const SingleTodo = ({token, todos}) => {
             </form>
             :null}
          </div>
+            <div className='noteContainer'>
+            {!todo.notes ? null: todo.notes.map(note =>
+                <NoteItem note={note}/>
+                )}
+            </div>
       </div>
         :
         <div>Loading</div>
