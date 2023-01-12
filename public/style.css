@@ -44,11 +44,32 @@ header button {
     align-items: center;
 }
 
-/************************TODO CARD ********************/
+/************************TODOs ********************/
+.todoPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.filterOptions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    height: 100px;
+    background-color: gray
+}
+
+.filterOptions select{
+    width: 200px;
+}
+
 .todo-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 10px; 
 }
 
 .todoCard {

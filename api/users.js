@@ -56,8 +56,19 @@ userRouter.post('/login', async(req, res, next) => {
 
 userRouter.get('/me', requireUser, async(req, res, next) => {
   try {
+    console.log("I got here")
     const user = await getUserById(req.user.id)
       const userTodos = await getTodosByUserId(req.user.id)
+      for(let i = 0; i < userTodos.length; i++) {
+        userTodos[i]['status'] = ''
+        if (userTodos[i].isComplete) {
+          userTodos[i].status = 'complete'
+        } else if (new Date(userTodos[i].due_date) - new Date() <= 0) {
+          userTodos[i].status = 'overdue'
+        }else {
+          userTodos[i].status = 'incomplete'
+        }
+      }
       console.log(userTodos)
       res.send({user: user, todos:userTodos})
   }catch(error) {

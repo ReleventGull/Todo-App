@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {createTodo} from '../api/index'
 
-const CreateTodo = ({token, setSubmit}) => {
+const CreateTodo = ({token}) => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [date, setDate] = useState('')
@@ -27,8 +27,6 @@ const CreateTodo = ({token, setSubmit}) => {
         if(response.error) {
             setErrorMessage(response.error)
         }else {
-            console.log(response)
-            setSubmit(true)
             navigate('/todos')
         }
     }
