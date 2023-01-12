@@ -64,8 +64,7 @@ const Todos = ({ token }) => {
            !todos? null :  todos.map((todo) => 
                 <Todoitem 
                 viewButton={<Link className='todo-icons' to={`${todo.id}`}><img src={viewButton}/></Link>} todo={todo}>
-                <img onClick={() => console.log("I was clicked at", todo.id)}
-                className='todo-icons' src={trashcan}/>
+              
                 </Todoitem >
             )
         }

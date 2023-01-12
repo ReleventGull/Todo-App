@@ -149,12 +149,12 @@ header button {
     justify-self: center;
     grid-area: a;
     
-    background-color: #850000;
+    background-color: wheat;
     display: flex;
     flex-direction: column;
     align-items:  center;
     width: 600px;
-    height: 200px;
+    height: 400px;
     border-radius: 4%;
     justify-content: space-around;
 }
@@ -184,4 +184,19 @@ header button {
     color: wheat;
     width: 150px;
     height: 150px;
+}
+
+.delete-icon {
+    align-self: flex-end;
+    transition: .3s;
+}
+
+.delete-icon:hover {
+    transform: scale(1.1);
+    transition: .3s;
+}
+
+.add-note-button {
+    background-color: transparent;
+    justify-content: baseline;
 }
