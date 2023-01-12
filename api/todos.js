@@ -1,19 +1,11 @@
 const {requireUser} = require('./utils')
 const express = require('express')
 const todoRouter = express.Router()
-const {getAllTodos, createTodo, getTodoById, updateTodo, deleteTodo} = require('../db/todos')
+const {createTodo, getTodoById, updateTodo, deleteTodo} = require('../db/todos')
 
 
 //Gets all the todos
-todoRouter.get('/', async(req, res, next) => {
-    try {
-        const allTodos = await getAllTodos()
-        res.send(allTodos)
-    }catch(error) {
-        console.log("There was an error getting all the todos")
-        throw error
-    }
-})
+
 
 todoRouter.get('/:todoId', async(req, res, next) => {
     try {
@@ -84,8 +76,13 @@ todoRouter.delete('/:toDoId', requireUser, async(req, res, next) => {
         throw error
     }
 })
+const notesRouter = require('./notes')
 
-
+todoRouter.use('/:todoId/notes', (req, res, next) => {
+req.customId = req.params
+next()
+},
+notesRouter);
 
 
 module.exports = todoRouter

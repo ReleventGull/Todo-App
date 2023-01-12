@@ -1,3 +1,5 @@
+import { stripBasename } from "@remix-run/router"
+
 const BASE_URL = 'http://localhost:4500/api'
 
 export const fetchUserTodos = async({token}) => {
@@ -80,7 +82,6 @@ export const createTodo = async({name, token, description, due_date}) => {
 
 export const getSingleTodo = async({id, token}) => {
     try {
-        console.log('Id is here right', id)
         const response = await fetch(`${BASE_URL}/todos/${id}`, {
             method: "GET",
             header: {
@@ -89,10 +90,29 @@ export const getSingleTodo = async({id, token}) => {
             }
         })
         const result = await response.json()
+        console.log(result)
         return result
     }catch(error){
         console.error("There was an error getting the todo by id", error)
         throw error
     }
-    
+}
+
+export const createNote = async({id, token, description}) => {
+    try {
+        const response = await fetch(`${BASE_URL}/todos/${id}/notes`, {
+            method: "POST",
+            headers: {
+                'Content-Type' : 'application/json',
+                'Authorization': `Bearer ${token}`
+            }, 
+            body: JSON.stringify({
+                description: description
+            })
+        }).then(response => response.json())
+        return response
+    }catch(error) {
+        console.error("There was an error creating a note", error)
+        throw error
+    }
 }

@@ -2,7 +2,7 @@ const client = require('./index')
 
 const {dropTables, createTables} = require('./initdb')
 const {createNote, updateNote} = require('./notes')
-const {createTodo, getTodosByUserId, getAllTodos, getAllCompleteTodos, updateTodo, deleteTodo} = require('./todos')
+const {createTodo, getTodosByUserId, getAllCompleteTodos, updateTodo, deleteTodo} = require('./todos')
 const {createUser, getUserByUsername, getUserById, } = require('./users')
 
 
@@ -87,7 +87,7 @@ await getTodosByUserId(2)
 // await getAllTodos()
 await initalUpdatedTodos()
 await initialUpdateNotes()
-await getAllTodos()
+
 // await getAllCompleteTodos()
 }
 
