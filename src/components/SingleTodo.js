@@ -48,8 +48,8 @@ const SingleTodo = ({token, todos}) => {
             :null}
          </div>
             <div className='noteContainer'>
-            {!todo.notes ? null: todo.notes.map(note =>
-                <NoteItem note={note}/>
+            {!todo.notes ? null: todo.notes.map((note, index) =>
+                <NoteItem index={index} note={note}/>
                 )}
             </div>
       </div>

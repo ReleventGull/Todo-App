@@ -130,3 +130,17 @@ header button {
     height: 200px;
     border-radius: 4%;
 }
+.noteContainer {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction:row;
+    justify-content: space-around;
+}
+
+.singleNote {
+    background-color: black;
+    color: wheat;
+    width: 150px;
+    height: 150px;
+}
