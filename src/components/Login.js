@@ -28,7 +28,7 @@ const Login = ({setToken}) => {
         setErrorMessage('')
         localStorage.setItem('token', response.token)
         setToken(response.token)
-        navigate('/')
+        navigate('/todos')
     }
     }
 
@@ -53,37 +53,34 @@ const Login = ({setToken}) => {
 
 
     return (
-        currentAction == 'login' ?
         <div className='login-page'>
-            <h2>Signup</h2>
-            <form onSubmit={handleLogin} className='login-form'>
-                <h2>Username</h2>
-                <input type='username' value={username} onChange={(event) => setUsername(event.target.value)}/>
-                <h2>Password</h2>
-                <input type='password' value={password} onChange={(event) => setPassword(event.target.value)}/>
-            <button typer='Submit'>Login!</button>
-            </form> 
-            <h3>Don't have an account?</h3>
-            <button onClick={() => setCurrentAction('register')}>Register Here!</button>
-            <h3>{errorMessage}</h3>
-        </div>
-        :
-        <div className='login-page'>
-            <h2>Signup</h2>
-            <form onSubmit={handleRegister} className='login-form'>
-                <h2>Username</h2>
+            <form onSubmit={ currentAction =='register' ? handleRegister : handleLogin} className='login-form'>
+            <h1>Welcome</h1>
+                <div className='input-forms'>
+                <label>Username</label>
                 <input type='username' required value={username} onChange={(event) => setUsername(event.target.value)}/>
-                <h2>Password</h2>
-                <input type='password' required value={password} onChange={(event) => setPassword(event.target.value)}/>
-                <h2>Confirm Password</h2>
-                <input type='password' required value={password2} onChange={(event) => setPassword2(event.target.value)}/>
-                <button type='Submit'>Register!</button>
-                <h3>{errorMessage}</h3>
-                <h3>Already have an account?</h3>
-                <button onClick={() => setCurrentAction('login')}>Login Here!</button>
+                </div>
                 
+                <div className='input-forms'>
+                <label>Password</label>
+                <input type='password' required value={password} onChange={(event) => setPassword(event.target.value)}/>
+                </div>
+               
+               {currentAction == 'register' ? 
+                <div className='input-forms'>
+                <label>Confirm Password</label>
+                <input type='password' required value={password2} onChange={(event) => setPassword2(event.target.value)}/>
+                </div>
+                : 
+                null
+                }
+               
+                
+                <button type='Submit'>{currentAction == 'register' ? 'Register' : 'Login'}</button>
+                <h3>{errorMessage}</h3>
             </form> 
-           
+            <h3>{currentAction == 'register' ? 'Have an accout?' : "Don't have an account?"}</h3>
+                <button onClick={currentAction == 'register' ? () => setCurrentAction('login') : () => setCurrentAction('register')}>{currentAction == 'register' ? 'Login Here' : 'Register Here'}</button>
         </div>
 
     )

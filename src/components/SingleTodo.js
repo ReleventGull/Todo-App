@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
 import {getSingleTodo, createNote} from '../api/index'
 import {default as NoteItem} from './NoteItem'
+import trashcan from './images/trashcan.png'
 
 const SingleTodo = ({token, todos}) => {
     const [todo, setTodo] = useState({})
@@ -33,10 +34,13 @@ const SingleTodo = ({token, todos}) => {
        <div className='singlePage'>
          <div className='sinlgeBox'>
             <div className='todoBox'>
-                <h3>{todo.name}</h3>
-                <h2>{todo.description}</h2>
+                <h1>{todo.name}</h1>
+                <h3>{todo.description}</h3>
+                <h2>Due Date:</h2>
                 <div>{todo.due_date}</div>
-                <button onClick={() => setAddNote(value => !value)}>{addNote ? 'Cancel' : 'Add Note'}</button>
+                <button className='add-note-button' onClick={() => setAddNote(value => !value)}>{addNote ? 'Cancel' : 'Add Note'}</button>
+                <img onClick={() => console.log("I was clicked at", todo.id)}
+                className='delete-icon' src={trashcan}/>
             </div>
             {addNote 
             ? 
@@ -47,11 +51,11 @@ const SingleTodo = ({token, todos}) => {
             </form>
             :null}
          </div>
-            <div className='noteContainer'>
+            {/* <div className='noteContainer'>
             {!todo.notes ? null: todo.notes.map((note, index) =>
                 <NoteItem index={index} note={note}/>
                 )}
-            </div>
+            </div> */}
       </div>
         :
         <div>Loading</div>
