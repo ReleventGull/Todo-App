@@ -1,36 +1,41 @@
-import React, {useState,} from 'react'
-import {Link, Route, Routes,} from 'react-router-dom'
+import React, {useEffect, useState,} from 'react'
+import {Link, Route, Routes, useNavigate} from 'react-router-dom'
 import {Home, Todos, Login, SingleTodo, CreateTodo} from './components/index'
+import logout from './components/images/logout.png'
+import home from './components/images/home.png'
+import note from './components/images/note.png'
+import plus from './components/images/plus.png'
 const App = () => {
     const [token, setToken] = useState(localStorage.getItem('token') || '')
+    const navigate = useNavigate()
+    useEffect(() => {
+        token ? null : navigate('/login')
+    }, [])
     return (
-        <>
-        <header>
-        <h2>Todo App</h2>
-        <nav>
-            <Link to='/'>Home</Link>
-            {token ?
-            <>
-            <Link to='todos'>MyTodos</Link>
-            <Link to='createTodo'>Create Todo</Link>
-            <button onClick={() => {setToken(''), localStorage.removeItem('token')}}>Logout</button>
-            </>
-            :
-            <>
-            <Link to='login'>Login</Link>
-            <Link>Register</Link>
-            </>
-            }
-        </nav>
-       </header>
-       <Routes>
-        <Route path='/' element={<Home />}/>
-        <Route path='todos/:id' element={<SingleTodo token={token}/>}/>
-        <Route path='todos' element={<Todos token={token}/>}/>
-        <Route path='login'  element={<Login setToken={setToken}/>}/>
-        <Route path='createTodo' element={<CreateTodo  token={token}/>} />
-       </Routes>
-        </>
+        <main className={token ? 'flex' : null}>
+           
+                {token ?
+                <div className='sideNav'>
+                <nav>
+                <Link to='/'><img className='logoutButton' src={home}/></Link>
+                <Link to='todos'><img className='logoutButton' src={note}/></Link>
+                <Link to='createTodo'><img className='logoutButton' src={plus}/></Link>
+                </nav>
+                <Link className='log out' to='/login' onClick={() => {setToken(''), localStorage.removeItem('token')}}> 
+                <img className='logoutButton' src={logout}/>
+                </Link>
+                </div>
+                :
+                null
+                }
+        <Routes>
+            <Route path='/' element={<Home />}/>
+            <Route path='todos/:id' element={<SingleTodo token={token}/>}/>
+            <Route path='todos' element={<Todos token={token}/>}/>
+            <Route path='login'  element={<Login setToken={setToken}/>}/>
+            <Route path='createTodo' element={<CreateTodo  token={token}/>} />
+        </Routes>
+       </main>
        
     )
 }

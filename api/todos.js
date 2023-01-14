@@ -78,11 +78,7 @@ todoRouter.delete('/:toDoId', requireUser, async(req, res, next) => {
 })
 const notesRouter = require('./notes')
 
-todoRouter.use('/:todoId/notes', (req, res, next) => {
-req.customId = req.params
-next()
-},
-notesRouter);
+todoRouter.use('/:todoId/notes', notesRouter);
 
 
 module.exports = todoRouter

@@ -1,13 +1,15 @@
 const express = require('express')
-const notesRouter = express.Router()
+const notesRouter = express.Router({mergeParams: true})
 const {getTodoById} = require('../db/todos')
 const {createNote} = require('../db/notes')
 const {requireUser} = require('./utils')
 
 
+
 notesRouter.post('/', requireUser, async(req, res, next) => {
     try {
-        const {todoId} = req.customId
+       
+        const {todoId} = req.params
         console.log('The id params', todoId)
         const {description} = req.body
         const checkTodo = await getTodoById({id: todoId})

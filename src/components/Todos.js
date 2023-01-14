@@ -2,7 +2,7 @@ import React, {useEffect, useState,} from 'react'
 import {useNavigate, Link} from 'react-router-dom'
 import {default as Todoitem} from './TodoItem'
 import { fetchUserTodos } from '../api'
-import trashcan from './images/trashcan.png'
+
 import viewButton from './images/view.png'
  
 const Todos = ({ token }) => {
@@ -30,36 +30,41 @@ const Todos = ({ token }) => {
         }
     }, [])
     
-    const handleChange = async(event) => {
-    if(event.target.value == 'all'){
+    const handleChange = async(string) => {
+    if(string == 'all'){
         getUserTodos()
-    }else if (event.target.value == 'complete') {
+    }else if (string == 'complete') {
         const allTodos = await fetchUserTodos({token: token})
         console.log('All todos here', allTodos)
         setTodos(allTodos.todos.filter(todo => todo.isComplete == true) || [])
      
-    }else if (event.target.value == 'incomplete') {
+    }else if (string == 'incomplete') {
         const allTodos = await fetchUserTodos({token: token})
         setTodos(allTodos.todos.filter(todo => todo.status == 'incomplete') || [])
-     }else if (event.target.value == 'overdue') {
+     }else if (string == 'overdue') {
         const allTodos = await fetchUserTodos({token: token})
         setTodos(allTodos.todos.filter(todo => todo.status == 'overdue'))
      }
 }
 
     return (
+        
         <div className='todoPage'>
-            <div className='filterOptions'>
-                <h2>Filter Options</h2>
-            <select onChange={handleChange}>
-                <option value='all'>All</option>
-                <option value='complete'>Complete</option>
-                <option value='incomplete'>Incomplete</option>
-                <option value='overdue'>Overdue</option>
-            </select>
-            </div>
+            <header className='filterHeader'>
+                <div className='search-container-box'>
+                <input placeholder='Search for A Todo'></input>
+                    </div>
+                        <div className='menu-drop'>
+                            Search By
+                        <ul >
+                            <li onClick={() => handleChange('all')} value='all'>All</li>
+                            <li onClick={() => handleChange('complete')} value='complete'>Complete</li>
+                            <li onClick={() => handleChange('incomplete')}value='incomplete'>Incomplete</li>
+                            <li onClick={() => handleChange('overdue')}value='overdue'>Overdue</li>
+                        </ul>
+                    </div> 
+            </header>
             <div className='todo-container'>
-            
         {
            !todos? null :  todos.map((todo) => 
                 <Todoitem 

@@ -51,11 +51,11 @@ const SingleTodo = ({token, todos}) => {
             </form>
             :null}
          </div>
-            <div className='noteContainer'>
+            {/* <div className='noteContainer'>
             {!todo.notes ? null: todo.notes.map((note, index) =>
                 <NoteItem index={index} note={note}/>
                 )}
-            </div>
+            </div> */}
       </div>
         :
         <div>Loading</div>
