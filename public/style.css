@@ -294,6 +294,7 @@ html, body, #root, #app, main {
 
 /********************View Todo***************************/
 .singlePage {
+    background-image: url('https://img.freepik.com/free-photo/beautiful-view-greenery-bridge-forest-perfect-background_181624-17827.jpg?w=2000');
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -308,11 +309,20 @@ html, body, #root, #app, main {
     "a";
     margin-top: 20px;
 }
-
+.due_date.incomplete {
+    color: white;
+}
+.due_date.complete {
+    color: green;
+}
+.due_date.overdue {
+    color: red;
+}
 .todoBox {
+    color: white;
     justify-self: center;
     grid-area: a;
-    background-color: wheat;
+    background-color: hsl(var(--primary-dark-hsl), .9);
     display: flex;
     flex-direction: column;
     align-items:  center;
@@ -321,10 +331,10 @@ html, body, #root, #app, main {
     justify-content: space-around;
 }
 
+
 .noteForm {
     justify-self: flex-end;
     grid-area: a;
-    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -334,18 +344,29 @@ html, body, #root, #app, main {
     border-radius: 4%;
 }
 .noteContainer {
+    overflow: auto;
     width: 100%;
+    height: 100%;
     margin-top: 10px;
     display: flex;
+    flex-wrap: wrap;
     flex-direction:row;
     justify-content: space-around;
+    gap: 20px;
+
 }
 
 .singleNote {
-    background-color: black;
-    color: wheat;
-    width: 150px;
-    height: 150px;
+    margin-left: 20px;
+    color: white;
+    background-color: hsl(var(--primary-dark-hsl), .8);
+    width: 700px;
+    height: 100px;
+    min-height: 100px;
+}
+.space-icons {
+    display: flex;
+    justify-content: space-between;
 }
 
 .delete-icon {
@@ -359,6 +380,28 @@ html, body, #root, #app, main {
 }
 
 .add-note-button {
-    background-color: transparent;
+    background-color: white;
     justify-content: baseline;
+    width: 80px;
+    height: 40px;
+    border-radius: 15px;
+    border: none;
+    transition: .3s;
 }
+
+.add-note-button:hover {
+background-color: green;
+transition: .3s;
+}
+.delete-note-drop-down div {
+    background-color: rgb(11, 0, 0);
+    color: red;
+    position: absolute;
+    border-radius: 5px;
+    width: 100px;
+}
+.delete-note-drop-down p {
+    text-align: center;
+  cursor: pointer;
+}
+

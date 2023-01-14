@@ -10,9 +10,17 @@ const {createTodo, getTodoById, updateTodo, deleteTodo} = require('../db/todos')
 todoRouter.get('/:todoId', async(req, res, next) => {
     try {
     const {todoId} = req.params
-    console.log(todoId)
     const todo = await getTodoById({id: todoId})
-    console.log(todo)
+   
+        todo['status'] = ''
+        if (todo.isComplete) {
+          todo.status = 'complete'
+        } else if (new Date(todo.due_date) - new Date() <= 0) {
+          todo.status = 'overdue'
+        }else {
+          todo.status = 'incomplete'
+        }
+      
     res.send(todo)
     }catch(error) {
         throw error
