@@ -294,7 +294,9 @@ html, body, #root, #app, main {
 
 /********************View Todo***************************/
 .singlePage {
-    background-image: url('https://img.freepik.com/free-photo/beautiful-view-greenery-bridge-forest-perfect-background_181624-17827.jpg?w=2000');
+    background-image: url('https://wallpaperaccess.com/full/24866.jpg');
+    background-size: cover;
+    background-position: center;
     display: flex;
     flex-direction: column;
     align-items: center;
