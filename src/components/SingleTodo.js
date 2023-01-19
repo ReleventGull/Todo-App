@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
-import {getSingleTodo, createNote} from '../api/index'
+import {getSingleTodo, createNote, completeTodo} from '../api/index'
 
 import {default as NoteItem} from './NoteItem'
 import trashcan from './images/trashcan.png'
 
-const SingleTodo = ({token, todos}) => {
+const SingleTodo = ({token}) => {
     const [todo, setTodo] = useState({})
     const [addNote, setAddNote] = useState(false)
     const [noteDescription, setNoteDescription] = useState('')
@@ -34,7 +34,29 @@ const SingleTodo = ({token, todos}) => {
        <div className='singlePage'>
          <div className='sinlgeBox'>
             <div className='todoBox'>
+               <div className='details-single'>
                 <h1>{todo.name}</h1>
+                    <div className='dropDown'>
+                        
+                        <div className='dropdown-menu'>
+                            <button>Mark As Incomplete</button>
+                            <button onClick={async() => 
+                            {
+                                const response = await completeTodo({token:token, isComplete: true, todoId:todo.id})
+                                if (response.error) {
+                                    return
+                                }else {
+                                    fetchSingleTodo()
+                                }
+                            }}
+                                
+                            >Mark As Complete</button>
+                            <button>Edit</button>
+                            <button className='deleteTodoButton'>Delete</button>
+                        </div>
+                    </div>
+                </div>
+                
                 <h3>{todo.description}</h3>
                 <h2 >Due Date:</h2>
                 <div className={`due_date ${todo.status}`}>{todo.due_date}</div>
@@ -52,9 +74,12 @@ const SingleTodo = ({token, todos}) => {
             <div className='noteContainer'>
             {!todo.notes ? null: todo.notes.map((note, index) =>
                 <NoteItem 
-
+                todo={todo}
                 index={index} 
-                note={note}>
+                note={note}
+                token={token}
+                fetchSingleTodo={fetchSingleTodo}
+                >
                 </NoteItem>
                 )}
             </div>

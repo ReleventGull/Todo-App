@@ -30,16 +30,14 @@ const CreateTodo = ({token}) => {
             navigate('/todos')
         }
     }
-    
-
     return (
         <div className='createPage'>
             <form onSubmit={handleSubmit} className='createForm'>
                 <h2>Name</h2>
-                <input value={name} onChange={(event) => setName(event.target.value)}></input>
+                <input  required class='nameTodo' value={name} onChange={(event) => setName(event.target.value)}></input>
                 <h2>Descirption</h2>
-                <textarea value={description} onChange={(event) => setDescription(event.target.value) }></textarea>
-                <input min={new Date().toISOString().split("T")[0]} value={date} onChange={(event) => setDate(event.target.value)} type='date'></input>
+                <textarea required maxlength='150' value={description} onChange={(event) => setDescription(event.target.value) }></textarea>
+                <input required className='calendar' min={new Date().toISOString().split("T")[0]} value={date} onChange={(event) => setDate(event.target.value)} type='date'></input>
                 <button type='submit'>Submit</button>
             </form>
         </div>

@@ -1,4 +1,5 @@
-import { stripBasename } from "@remix-run/router"
+
+
 
 const BASE_URL = 'http://localhost:4500/api'
 
@@ -34,7 +35,7 @@ export const fetchUserTodos = async({token}) => {
         return response
     }catch(error) {
         console.error('There was an error logging in the user', error)
-        console.log(error)
+        console.log(error)/home/jaron/SelfProjects/ToDo/src/api
     }
 }
 
@@ -78,8 +79,6 @@ export const createTodo = async({name, token, description, due_date}) => {
     }
 }
 
-
-
 export const getSingleTodo = async({id, token}) => {
     try {
         const response = await fetch(`${BASE_URL}/todos/${id}`, {
@@ -95,6 +94,24 @@ export const getSingleTodo = async({id, token}) => {
     }catch(error){
         console.error("There was an error getting the todo by id", error)
         throw error
+    }
+}
+export const completeTodo = async ({todoId, isComplete, token}) => {
+    try {
+        const response = await fetch(`${BASE_URL}/todos/${todoId}` ,{
+            method: 'PATCH',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                isComplete: isComplete
+            })
+        }).then(result => result.json())
+        return response
+    }catch(error) {
+        console.error("There was an error marking the todo as complete", error)
+        error
     }
 }
 
@@ -113,6 +130,21 @@ export const createNote = async({id, token, description}) => {
         return response
     }catch(error) {
         console.error("There was an error creating a note", error)
+        throw error
+    }
+}
+
+export const deleteNote = async({noteId, todoId, token}) => {
+    try {
+        const response = await fetch (`${BASE_URL}/todos/${todoId}/notes/${noteId}`, {
+            method: "DELETE",
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(result => result.json())
+        return response
+    }catch(error) {
+        console.error("There was an error deleting the Todo in the front end api", error)
         throw error
     }
 }

@@ -18,6 +18,7 @@ html, body, #root, #app, main {
     --primary-dark-hsl: 171, 51%, 10%;
     --primary-light-hsl: 171, 51%, 45%;
     --primary-extralight-hsl: 171, 51%, 80%;
+   
 }
 
     @keyframes slidein {
@@ -30,7 +31,7 @@ html, body, #root, #app, main {
         }
       }
 
-    
+
 
 /**************************Login*****************/
 .login-page {
@@ -151,6 +152,7 @@ html, body, #root, #app, main {
 .filterHeader {
     width: 100%;
     background-color: hsl(var(--primary-dark-hsl));
+    min-height: 80px;
     height: 80px;
     display: flex;
     align-items: center;
@@ -231,6 +233,8 @@ html, body, #root, #app, main {
     align-items: center;
     justify-content: center;
     margin-top: 10px; 
+    width: 100%;
+    overflow-y: scroll;
 }
 
 .todoCard {
@@ -239,11 +243,12 @@ html, body, #root, #app, main {
     align-items: center;
     justify-content: space-around;
     background-color: hsl(var(--primary-dark-hsl), .8);
-    box-shadow: -10px 10px 30px 0px hsl(var(--primary-dark-hsl));
+    box-shadow: 0px 0px 15px 0px hsl(var(--primary-dark-hsl));
     color: white;
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 16px;
     width: 750px;
+    min-height: 300px;
     height: 300px;
     border-radius: 20px;
 }
@@ -276,9 +281,13 @@ html, body, #root, #app, main {
 
 /****************************Create Todd*********************/
 .createPage {
+    background-image: url('https://wallpaperaccess.com/full/24866.jpg');
+    background-size: cover;
+    background-position: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 100%;
     height: 100%;
 }
@@ -287,9 +296,67 @@ html, body, #root, #app, main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 300px;
-    height: 300px;;
+    justify-content: center;
+    width: 800px;
+    height: 500px;;
+    background-color: hsl(var(--primary-dark-hsl), .7);
+    color: white;
+    border-radius: 20px;
+    box-shadow: 0 0 15px 0 hsl(var(--primary-dark-hsl));
+    gap: 20px
 }
+.createForm textarea {
+    color: white;
+    min-width: 350px;
+    max-width: 350px;
+    min-height: 200px;
+    max-height: 200px;
+    font-size: 1.3em;
+    border-radius: 20px;
+    background-color: hsl(var(--primary-dark-hsl), .7);
+    padding: 10px;
+    transition: .3s
+}
+.createForm textarea:focus {
+    background-color: hsl(var(--primary-dark-hsl), .9);
+    transition: .3s
+}
+.createForm button {
+    color: white;
+    width: 140px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: hsl(var(--primary-dark-hsl), 6);
+    transition: .3s
+}
+.createForm button:hover {
+    background-color: hsl(var(--primary-light-hsl), 6);
+    transition: .3s
+}
+
+.nameTodo{
+    color: white;
+    width: 230px;
+    height: 30px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 100%;
+    background-color: hsl(var(--primary-dark-hsl), .7);
+    transition: .3s;
+}
+.nameTodo:focus {
+    background-color: hsl(var(--primary-dark-hsl), .9);
+    transition: .3s;
+}
+
+.calendar {
+    width: 100px;
+    height: 30px;
+    border-radius: 20px;
+    padding: 0 10px 0 10px;
+}
+
+
 
 
 /********************View Todo***************************/
@@ -403,7 +470,66 @@ transition: .3s;
     width: 100px;
 }
 .delete-note-drop-down p {
-    text-align: center;
+ text-align: center;
   cursor: pointer;
+}
+
+.details-single {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.dropDown{
+    position: relative;
+    left: 150px;
+    background-image: url('./images/dropdown.png');
+    background-position: center;
+    background-size: 35px;
+    background-repeat: no-repeat;
+    height: 30px;
+    width: 30px;
+    transform: rotate(-90deg);
+    transition: .3s;
+}
+
+.dropDown div {
+    position: absolute;
+    transition: .3s;
+    transform: scale(0);
+}
+.dropDown div button {
+    color: white;
+    background-color: hsl(var(--primary-dark-hsl));
+    width: 130px;
+    height: 30px;
+    padding: 3px;
+    border-radius: 0px;
+    transition: .3s;
+}
+.deleteTodoButton:hover {
+    color:red;
+}
+.dropDown div button:hover{
+    border-radius: 16px;
+    padding: 3px;
+    transition: .3s;
+}
+.dropDown:hover {
+    transform: rotate(0deg);
+    transition: .3s;
+    
+}
+
+.dropDown:hover > div {
+margin-top: 25px;
+background-color: hsl(var(--primary-dark-hsl), .6);
+display: block;
+border-radius: 20px;
+padding: 20px;
+display: flex;
+flex-direction: column;
+gap: 5px;
+transform: scale(1);
+transition: .3s;
 }
 

@@ -7,6 +7,10 @@ import viewButton from './images/view.png'
  
 const Todos = ({ token }) => {
     const [todos, setTodos] = useState([])
+    const [all, setAll] = useState('')
+    const [complete, setComplete] = useState('')
+    const [incomplete, setIncomplete] = useState('')
+    const [overdue, setOverdue] = useState('')
     const navigate = useNavigate()
     
     useEffect(() => {
@@ -19,6 +23,13 @@ const Todos = ({ token }) => {
         const result = await fetchUserTodos({token: token})
         setTodos(result.todos)
     }
+    async function setValues () {
+        const all = await fetchUserTodos({token: token})
+        setAll(String(all.todos.length))
+        setComplete(String(all.todos.filter(todo => todo.status=='complete').length))
+        setIncomplete(String(all.todos.filter(todo => todo.status=='incomplete').length))
+        setOverdue(String(all.todos.filter(todo => todo.status=='overdue').length))
+    }
     
     useEffect(() => {
         if(!token) {
@@ -27,6 +38,7 @@ const Todos = ({ token }) => {
         }else {
             console.log('i ran')
             getUserTodos()
+            setValues()
         }
     }, [])
     
@@ -45,6 +57,7 @@ const Todos = ({ token }) => {
         const allTodos = await fetchUserTodos({token: token})
         setTodos(allTodos.todos.filter(todo => todo.status == 'overdue'))
      }
+     setValues()
 }
 
     return (
@@ -57,10 +70,10 @@ const Todos = ({ token }) => {
                         <div className='menu-drop'>
                             Search By
                         <ul >
-                            <li onClick={() => handleChange('all')} value='all'>All</li>
-                            <li onClick={() => handleChange('complete')} value='complete'>Complete</li>
-                            <li onClick={() => handleChange('incomplete')}value='incomplete'>Incomplete</li>
-                            <li onClick={() => handleChange('overdue')}value='overdue'>Overdue</li>
+                            <li onClick={() => handleChange('all')} value='all'>All {all}</li>
+                            <li onClick={() => handleChange('complete')} value='complete'>Complete {complete}</li>
+                            <li onClick={() => handleChange('incomplete')}value='incomplete'>Incomplete {incomplete}</li>
+                            <li onClick={() => handleChange('overdue')}value='overdue'>Overdue {overdue}</li>
                         </ul>
                     </div> 
             </header>
