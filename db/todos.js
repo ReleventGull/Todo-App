@@ -3,7 +3,6 @@ const client = require('./index')
 
 const createTodo = async ({name, description, due_date, userId}) => {
     try {
-        console.log("Starting to create todo")
         const {rows: [todo]} = await client.query(`
         INSERT INTO todos (name, description, due_date, "userId")
         VALUES ($1, $2, $3, $4)
@@ -18,7 +17,6 @@ const createTodo = async ({name, description, due_date, userId}) => {
 }
 const getTodoById = async ({id}) => {
     try {
-        console.log(id)
     const {rows: todos} = await client.query(`
     SELECT todos.*, users.username AS "creatorName", notes.id AS note_id, notes.description AS notedesc
     FROM todos
@@ -26,8 +24,7 @@ const getTodoById = async ({id}) => {
     LEFT JOIN notes ON todos.id=notes."todoId"
     WHERE todos.id=$1;
     `, [id])
-    console.log('the todo here', todos)
-    
+
     let newTodo = {}
     newTodo['notes'] =[]
     newTodo['creatorName'] = todos[0].creatorName
@@ -59,7 +56,7 @@ const getAllCompleteTodos = async() => {
         JOIN users ON todos."userId"=users.id
         WHERE "isComplete"=true
         `)
-         console.log(todos)
+
     }catch(error) {
      throw error
     }
@@ -73,7 +70,6 @@ const getTodosByUserId = async(id) => {
     JOIN users ON todos."userId"=users.id
     WHERE users.id=$1
     `, [id])
-        
     return todos
     }catch(error) {
         console.log("There was an error getting notes and todos")
@@ -83,11 +79,9 @@ const getTodosByUserId = async(id) => {
 
 const updateTodo = async({id, ...fields}) => {
     const keys = Object.keys(fields)
-    console.log(keys)
     const beforeString = keys.map((key, index) => `"${key}"=$${index+2}`)
-    
     const setString = beforeString.join(', ')
-    console.log(setString)
+    console.log('fields here', fields)
     try {
      const {rows: [todo]} = await client.query(`
      UPDATE todos
@@ -95,7 +89,6 @@ const updateTodo = async({id, ...fields}) => {
      WHERE id=$1
      RETURNING *;
      `,[id, ...Object.values(fields)])
-     console.log("Udpated todo", todo)
      return todo
     }catch(error) {
         console.log('There was an error updating the Todo')

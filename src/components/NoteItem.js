@@ -1,16 +1,23 @@
 import React, {useState} from 'react'
+import { deleteNote } from '../api'
 
 
-const NoteItem = ({note, index}) => {
+const NoteItem = ({note, index, todo, token, fetchSingleTodo}) => {
    
+   
+    const handleDelete = async() => {
+    console.log(todo.id, note.id)
+    const response = await deleteNote({token: token, noteId: note.id, todoId: todo.id})
+    fetchSingleTodo()
+}
     return (
         <div className='singleNote'>
             <div className='space-icons'>
             <p>{`${index + 1}.`}</p>
             <details placeholder='' class='delete-note-drop-down'>
                <summary></summary>
-               <div>
-                    <p>Delete</p>
+               <div onClick={handleDelete}>
+                    <p >Delete</p>
                </div>
             </details>
             </div>

@@ -46,7 +46,6 @@ todoRouter.post('/', requireUser,  async(req, res, next) => {
 todoRouter.patch('/:toDoId', requireUser, async(req, res, next) => {
     try {
         const {toDoId} = req.params
-        console.log(toDoId)
         const foundTodo = await getTodoById({id:toDoId})
         if(foundTodo.userId != req.user.id) {
             res.status(402).send({
@@ -55,8 +54,10 @@ todoRouter.patch('/:toDoId', requireUser, async(req, res, next) => {
                 message: "You do not have permission to edit this todo!"
             })
         }else {
-            req.body.id = toDoId
-            const updatedTodo = await updateTodo(req.body)
+            let updateObject = {}
+            updateObject['id'] = toDoId
+            updateObject['isComplete'] = req.body.isComplete
+            const updatedTodo = await updateTodo(updateObject)
             res.send(updatedTodo)
         }
         
@@ -68,7 +69,6 @@ todoRouter.delete('/:toDoId', requireUser, async(req, res, next) => {
     try{
         const{toDoId} = req.params
         const foundTodo = await getTodoById({id: toDoId})
-        console.log(foundTodo)
         if(foundTodo.userId !== req.user.id) {
             res.status(402).send({
                 error: "AccessDenied",
