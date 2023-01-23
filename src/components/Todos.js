@@ -7,6 +7,7 @@ import viewButton from './images/view.png'
  
 const Todos = ({ token }) => {
     const [todos, setTodos] = useState([])
+    const [featuredTodos, setFeaturedTodos] = useState([])
     const [all, setAll] = useState('')
     const [complete, setComplete] = useState('')
     const [incomplete, setIncomplete] = useState('')
@@ -18,9 +19,10 @@ const Todos = ({ token }) => {
             navigate('/login')
         }
     }, [])
-
+  
     async function getUserTodos() {
         const result = await fetchUserTodos({token: token})
+        setFeaturedTodos(result.todos)
         setTodos(result.todos)
     }
     async function setValues () {
@@ -47,25 +49,34 @@ const Todos = ({ token }) => {
         getUserTodos()
     }else if (string == 'complete') {
         const allTodos = await fetchUserTodos({token: token})
-        console.log('All todos here', allTodos)
         setTodos(allTodos.todos.filter(todo => todo.isComplete == true) || [])
+        setFeaturedTodos(allTodos.todos.filter(todo => todo.isComplete == true) || [])
      
     }else if (string == 'incomplete') {
         const allTodos = await fetchUserTodos({token: token})
         setTodos(allTodos.todos.filter(todo => todo.status == 'incomplete') || [])
+        setFeaturedTodos(allTodos.todos.filter(todo => todo.status == 'incomplete') || [])
      }else if (string == 'overdue') {
         const allTodos = await fetchUserTodos({token: token})
         setTodos(allTodos.todos.filter(todo => todo.status == 'overdue'))
+        setFeaturedTodos(allTodos.todos.filter(todo => todo.status == 'overdue'))
      }
      setValues()
 }
-
+const handleSearch = (e) => {
+    const filteredTodos = todos.filter(todo => 
+        todo.name.toLowerCase().includes(e.target.value.toLowerCase())
+        ||
+        todo.description.toLowerCase().includes(e.target.value.toLowerCase())
+       )
+       setFeaturedTodos(filteredTodos)
+    
+}
     return (
-        
         <div className='todoPage'>
             <header className='filterHeader'>
                 <div className='search-container-box'>
-                <input placeholder='Search for A Todo'></input>
+                <input onChange={handleSearch}placeholder='Search for A Todo'></input>
                     </div>
                         <div className='menu-drop'>
                             Search By
@@ -79,7 +90,7 @@ const Todos = ({ token }) => {
             </header>
             <div className='todo-container'>
         {
-           !todos? null :  todos.map((todo) => 
+           !featuredTodos? null :  featuredTodos.map((todo) => 
                 <Todoitem 
                 viewButton={<Link className='todo-icons' to={`${todo.id}`}><img src={viewButton}/></Link>} todo={todo}>
               
