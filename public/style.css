@@ -10,6 +10,13 @@ html, body, #root, #app, main {
     
   }
 
+body {
+    background-image: url('https://wallpaperaccess.com/full/24866.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
 .flex {
     display: flex;
 }
@@ -99,6 +106,8 @@ html, body, #root, #app, main {
     justify-content: space-between;
     width: 100px;
     margin: 0;
+    position: fixed;
+    height: 100%
     
 }
 .sideNav nav {
@@ -145,9 +154,6 @@ html, body, #root, #app, main {
     flex-direction: column;
     height: 100%;
     width: 100%;
-    background-image: url('https://wallpaperaccess.com/full/24866.jpg');
-    background-size: cover;
-    background-position: center;
 }
 .filterHeader {
     width: 100%;
@@ -234,7 +240,6 @@ html, body, #root, #app, main {
     justify-content: center;
     margin-top: 10px; 
     width: 100%;
-    overflow-y: scroll;
 }
 
 .todoCard {
@@ -281,9 +286,6 @@ html, body, #root, #app, main {
 
 /****************************Create Todd*********************/
 .createPage {
-    background-image: url('https://wallpaperaccess.com/full/24866.jpg');
-    background-size: cover;
-    background-position: center;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -361,9 +363,6 @@ html, body, #root, #app, main {
 
 /********************View Todo***************************/
 .singlePage {
-    background-image: url('https://wallpaperaccess.com/full/24866.jpg');
-    background-size: cover;
-    background-position: center;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -533,3 +532,11 @@ transform: scale(1);
 transition: .3s;
 }
 
+/*********************************EDIT CONTAINER****************************************/
+.editContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
