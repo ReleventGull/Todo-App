@@ -15,14 +15,11 @@ const CreateTodo = ({token}) => {
 
     const handleSubmit = async(event) => {
         event.preventDefault()
-        const dateArray = date.split('-')
-        const dates = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-        const due_date = `${dates[dateArray[1]-1]} ${dateArray[2]}, ${dateArray[0]}`
         const response = await createTodo({
             name: name,
             token: token,
             description: description,
-            due_date: due_date
+            due_date: date
         })
         if(response.error) {
             setErrorMessage(response.error)
@@ -35,7 +32,7 @@ const CreateTodo = ({token}) => {
             <form onSubmit={handleSubmit} className='createForm'>
                 <h2>Name</h2>
                 <input  required class='nameTodo' value={name} onChange={(event) => setName(event.target.value)}></input>
-                <h2>Descirption</h2>
+                <h2>Description</h2>
                 <textarea required maxlength='150' value={description} onChange={(event) => setDescription(event.target.value) }></textarea>
                 <input required className='calendar' min={new Date().toISOString().split("T")[0]} value={date} onChange={(event) => setDate(event.target.value)} type='date'></input>
                 <button type='submit'>Submit</button>

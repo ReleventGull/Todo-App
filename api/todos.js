@@ -20,7 +20,14 @@ todoRouter.get('/:todoId', async(req, res, next) => {
         }else {
           todo.status = 'incomplete'
         }
-      
+    console.log("RBRR")
+    let dateString = ''
+    for(let i = 0; i < todo.due_date.length; i++) {
+        if (todo.due_date[i] !== ',') {
+            dateString += todo.due_date[i]
+        }
+    }
+    todo['dateString'] = dateString
     res.send(todo)
     }catch(error) {
         throw error
@@ -30,7 +37,12 @@ todoRouter.get('/:todoId', async(req, res, next) => {
 todoRouter.post('/', requireUser,  async(req, res, next) => {
     try {
     let updateFields = {}
-    const {name, description, due_date} = req.body
+    
+    const {name, description, date} = req.body
+    const dateArray = date.split('-')
+    const dates = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    const due_date = `${dates[dateArray[1]-1]} ${dateArray[2]}, ${dateArray[0]}`
+    
     updateFields.name = name
     updateFields.description= description
     updateFields.due_date = due_date
@@ -54,9 +66,19 @@ todoRouter.patch('/:toDoId', requireUser, async(req, res, next) => {
                 message: "You do not have permission to edit this todo!"
             })
         }else {
+            const {description, isComplete, due_date, name} = req.body
             let updateObject = {}
             updateObject['id'] = toDoId
-            updateObject['isComplete'] = req.body.isComplete
+            updateObject['isComplete'] = isComplete
+            name ? updateObject['name'] = name : null
+            
+            if(due_date) {
+            const dateArray = due_date.split('-')
+            const dates = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+            const newDate = `${dates[dateArray[1]-1]} ${dateArray[2]}, ${dateArray[0]}`
+            updateObject['due_date'] = newDate
+            }
+            description ? updateObject['description'] = description: null
             const updatedTodo = await updateTodo(updateObject)
             res.send(updatedTodo)
         }

@@ -68,7 +68,7 @@ export const createTodo = async({name, token, description, due_date}) => {
             body: JSON.stringify({
                 name: name,
                 description: description,
-                due_date: due_date
+                date: due_date
             })
         }).then(result => result.json())
         console.log(response)
@@ -96,7 +96,7 @@ export const getSingleTodo = async({id, token}) => {
         throw error
     }
 }
-export const completeTodo = async ({todoId, isComplete, token}) => {
+export const updatedTodo = async ({todoId, isComplete = false, description, name, due_date, token}) => {
     try {
         const response = await fetch(`${BASE_URL}/todos/${todoId}` ,{
             method: 'PATCH',
@@ -105,7 +105,10 @@ export const completeTodo = async ({todoId, isComplete, token}) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                isComplete: isComplete
+                name:name,
+                description: description,
+                isComplete: isComplete,
+                due_date: due_date
             })
         }).then(result => result.json())
         return response
@@ -145,6 +148,21 @@ export const deleteNote = async({noteId, todoId, token}) => {
         return response
     }catch(error) {
         console.error("There was an error deleting the Todo in the front end api", error)
+        throw error
+    }
+}
+
+export const deleteTodo = async({id, token}) => {
+    try {
+        const response = await fetch (`${BASE_URL}/todos/${id}`, {
+            method: "DELETE",
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(result => result.json())
+        return response
+    }catch(error) {
+        console.error("There was an error trying to delete the todo in src/api", error)
         throw error
     }
 }

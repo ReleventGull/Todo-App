@@ -24,7 +24,7 @@ const getTodoById = async ({id}) => {
     LEFT JOIN notes ON todos.id=notes."todoId"
     WHERE todos.id=$1;
     `, [id])
-
+    console.log(todos)
     let newTodo = {}
     newTodo['notes'] =[]
     newTodo['creatorName'] = todos[0].creatorName
@@ -56,7 +56,7 @@ const getAllCompleteTodos = async() => {
         JOIN users ON todos."userId"=users.id
         WHERE "isComplete"=true
         `)
-
+        return todos
     }catch(error) {
      throw error
     }
