@@ -19,6 +19,20 @@ const createUser = async({username, password}) => {
         throw error
     }
 }
+const createProfilePicture = async({id, img}) => {
+    try {
+    const {rows: [user]} = await client.query(`
+    UPDATE users
+    SET img=$2
+    WHERE id=$1
+    RETURNING *
+    `, [id, img])
+    return user
+    }catch(error) {
+        console.error("There was an error adding ta profile picture to the user")
+        throw error
+    }
+}
 
 const getUserByUsername  = async (username) => {
     try{
@@ -44,6 +58,7 @@ const getUserById  = async (id) => {
     WHERE id=$1;
     `, [id])
     delete user.id
+    console.log("user here", user)
     return user
     }catch(error) {
         console.log("There was an error getting the user by their username")
@@ -74,5 +89,6 @@ module.exports = {
     createUser,
     getUserByUsername,
     getUserById,
-    getUser
+    getUser,
+    createProfilePicture
 }

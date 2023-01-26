@@ -22,15 +22,15 @@ const Todos = ({ token }) => {
   
     async function getUserTodos() {
         const result = await fetchUserTodos({token: token})
-        setFeaturedTodos(result.todos)
-        setTodos(result.todos)
+        setFeaturedTodos(result)
+        setTodos(result)
     }
     async function setValues () {
-        const all = await fetchUserTodos({token: token})
-        setAll(String(all.todos.length))
-        setComplete(String(all.todos.filter(todo => todo.status=='complete').length))
-        setIncomplete(String(all.todos.filter(todo => todo.status=='incomplete').length))
-        setOverdue(String(all.todos.filter(todo => todo.status=='overdue').length))
+        const todos = await fetchUserTodos({token: token})
+        setAll(String(todos.length))
+        setComplete(String(todos.filter(todo => todo.status=='complete').length))
+        setIncomplete(String(todos.filter(todo => todo.status=='incomplete').length))
+        setOverdue(String(todos.filter(todo => todo.status=='overdue').length))
     }
     
     useEffect(() => {
@@ -48,18 +48,18 @@ const Todos = ({ token }) => {
     if(string == 'all'){
         getUserTodos()
     }else if (string == 'complete') {
-        const allTodos = await fetchUserTodos({token: token})
-        setTodos(allTodos.todos.filter(todo => todo.isComplete == true) || [])
-        setFeaturedTodos(allTodos.todos.filter(todo => todo.isComplete == true) || [])
+        const todos = await fetchUserTodos({token: token})
+        setTodos(todos.filter(todo => todo.isComplete == true) || [])
+        setFeaturedTodos(todos.filter(todo => todo.isComplete == true) || [])
      
     }else if (string == 'incomplete') {
-        const allTodos = await fetchUserTodos({token: token})
-        setTodos(allTodos.todos.filter(todo => todo.status == 'incomplete') || [])
-        setFeaturedTodos(allTodos.todos.filter(todo => todo.status == 'incomplete') || [])
+        const todos = await fetchUserTodos({token: token})
+        setTodos(todos.filter(todo => todo.status == 'incomplete') || [])
+        setFeaturedTodos(todos.filter(todo => todo.status == 'incomplete') || [])
      }else if (string == 'overdue') {
         const allTodos = await fetchUserTodos({token: token})
-        setTodos(allTodos.todos.filter(todo => todo.status == 'overdue'))
-        setFeaturedTodos(allTodos.todos.filter(todo => todo.status == 'overdue'))
+        setTodos(todos.filter(todo => todo.status == 'overdue'))
+        setFeaturedTodos(todos.filter(todo => todo.status == 'overdue'))
      }
      setValues()
 }

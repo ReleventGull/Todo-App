@@ -5,7 +5,7 @@ const BASE_URL = 'http://localhost:4500/api'
 
 export const fetchUserTodos = async({token}) => {
     try {
-    const response = await fetch(`${BASE_URL}/users/me`, {
+    const response = await fetch(`${BASE_URL}/todos`, {
         method: "GET",
         headers : 
         {
@@ -13,12 +13,25 @@ export const fetchUserTodos = async({token}) => {
             'Authorization': `Bearer ${token}`
   },
 }).then(response => response.json())
+console.log("This response", response)
     return response
     }catch(error) {
         console.error('There was an error fetching all todos', error)
     }
 }
-
+export const fetchUser = async (token) => {
+    try {
+    const response = await fetch(`${BASE_URL}/users/me`, {
+    headers : {
+        'Authorization': `Bearer ${token}`
+    }
+    }).then(result => result.json())
+    return response
+    }catch(error) {
+        console.error("There was an error fetching the user", error)
+        throw error
+    }
+}
  export const loginUser = async ({username, password}) => {
     try {
         console.log(username, password)
@@ -78,7 +91,24 @@ export const createTodo = async({name, token, description, due_date}) => {
         throw error
     }
 }
-
+export const addProfilePictures = async ({token, pfp}) => {
+    try {
+        const response = await fetch(`${BASE_URL}/users/profilePicture`, {
+            method: 'POST',
+            headers : {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body :JSON.stringify({
+                img : pfp
+            })
+        }).then(result => result.json())
+        return response
+    }catch(error) {
+        console.error("There was an erroring adding the profile pictures", error)
+        throw error
+    }
+}
 export const getSingleTodo = async({id, token}) => {
     try {
         const response = await fetch(`${BASE_URL}/todos/${id}`, {

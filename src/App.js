@@ -1,19 +1,28 @@
 import React, {useEffect, useState,} from 'react'
 import {Link, Route, Routes, useNavigate} from 'react-router-dom'
 import {Home, Todos, Login, SingleTodo, CreateTodo} from './components/index'
+import {fetchUser} from './api'
 import logout from './components/images/logout.png'
 import home from './components/images/home.png'
 import note from './components/images/note.png'
 import plus from './components/images/plus.png'
 const App = () => {
     const [token, setToken] = useState(localStorage.getItem('token') || '')
+    const [user, setUser] = useState([])
     const navigate = useNavigate()
+    
+    const fetchUserfromApi = async() => {
+        const result = await fetchUser(token)
+        setUser(result)
+        return result
+    }
     useEffect(() => {
-        token ? null : navigate('/login')
+        token ? fetchUserfromApi() : navigate('/login')
     }, [])
+    
     return (
         <main className={token ? 'flex' : null}>
-           
+                
                 {token ?
                 <div className='sideNav'>
                 <nav>
@@ -29,7 +38,7 @@ const App = () => {
                 null
                 }
         <Routes>
-            <Route path='/' element={<Home />}/>
+            <Route path='/' element={<Home fetchUserfromApi={fetchUserfromApi} setUse={setUser} token={token} user={user} />}/>
             <Route path='todos/:id' element={<SingleTodo token={token}/>}/>
             <Route path='todos' element={<Todos token={token}/>}/>
             <Route path='login'  element={<Login setToken={setToken}/>}/>
