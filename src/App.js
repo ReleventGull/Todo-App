@@ -1,7 +1,6 @@
 import React, {useEffect, useState,} from 'react'
 import {Link, Route, Routes, useNavigate} from 'react-router-dom'
 import {Home, Todos, Login, SingleTodo, CreateTodo} from './components/index'
-import {fetchUser} from './api'
 import logout from './components/images/logout.png'
 import home from './components/images/home.png'
 import note from './components/images/note.png'
@@ -11,18 +10,13 @@ const App = () => {
     const [user, setUser] = useState([])
     const navigate = useNavigate()
     
-    const fetchUserfromApi = async() => {
-        const result = await fetchUser(token)
-        setUser(result)
-        return result
-    }
+ 
     useEffect(() => {
-        token ? fetchUserfromApi() : navigate('/login')
+        token ? null : navigate('/login')
     }, [])
     
     return (
         <main className={token ? 'flex' : null}>
-                
                 {token ?
                 <div className='sideNav'>
                 <nav>
@@ -38,7 +32,7 @@ const App = () => {
                 null
                 }
         <Routes>
-            <Route path='/' element={<Home fetchUserfromApi={fetchUserfromApi} setUse={setUser} token={token} user={user} />}/>
+            <Route path='/' element={<Home  token={token} />}/>
             <Route path='todos/:id' element={<SingleTodo token={token}/>}/>
             <Route path='todos' element={<Todos token={token}/>}/>
             <Route path='login'  element={<Login setToken={setToken}/>}/>

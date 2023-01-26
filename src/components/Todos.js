@@ -80,7 +80,7 @@ const handleSearch = (e) => {
                     </div>
                         <div className='menu-drop'>
                             Search By
-                        <ul >
+                        <ul className='dropBoxMenu'>
                             <li onClick={() => handleChange('all')} value='all'>All {all}</li>
                             <li onClick={() => handleChange('complete')} value='complete'>Complete {complete}</li>
                             <li onClick={() => handleChange('incomplete')}value='incomplete'>Incomplete {incomplete}</li>
