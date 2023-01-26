@@ -70,9 +70,30 @@ userRouter.post('/profilePicture', requireUser, async(req, res, next) => {
 
 userRouter.get('/me', requireUser, async(req, res, next) => {
   try {
+  
+    const userTodos = await getTodosByUserId(req.user.id)
+    const objectCount = {
+      all: userTodos.length,
+      complete: 0,
+      overdue: 0,
+      incomplete: 0
+    }
+    for(let i = 0; i < userTodos.length; i++) {
+      userTodos[i]['status'] = ''
+      if (userTodos[i].isComplete) {
+        userTodos[i].status = 'complete'
+        objectCount.complete ++
+      } else if (new Date(userTodos[i].due_date) - new Date() <= 0) {
+        userTodos[i].status = 'overdue'
+        objectCount.overdue ++
+      }else {
+        userTodos[i].status = 'incomplete'
+        objectCount.incomplete ++
+      }
+    }
+   
     const user = await getUserById(req.user.id)
-    console.log('User in the call here', user)
-    res.send(user)
+    res.send({user: user, todoCount:objectCount})
   }catch(error) {
       console.error(error)
   }
