@@ -1,12 +1,30 @@
 const {requireUser} = require('./utils')
 const express = require('express')
 const todoRouter = express.Router()
-const {createTodo, getTodoById, updateTodo, deleteTodo} = require('../db/todos')
+const {createTodo, getTodoById, updateTodo, deleteTodo, getTodosByUserId} = require('../db/todos')
 
 
 //Gets all the todos
 
-
+todoRouter.get('/', requireUser, async (req, res, next) => {
+    try {
+        const userTodos = await getTodosByUserId(req.user.id)
+        for(let i = 0; i < userTodos.length; i++) {
+          userTodos[i]['status'] = ''
+          if (userTodos[i].isComplete) {
+            userTodos[i].status = 'complete'
+          } else if (new Date(userTodos[i].due_date) - new Date() <= 0) {
+            userTodos[i].status = 'overdue'
+          }else {
+            userTodos[i].status = 'incomplete'
+          }
+        }
+        res.send(userTodos)
+    }catch(error) {
+        console.error("There was an error getting all of the todos", error)
+        throw error
+    }
+})
 todoRouter.get('/:todoId', async(req, res, next) => {
     try {
     const {todoId} = req.params
@@ -20,7 +38,6 @@ todoRouter.get('/:todoId', async(req, res, next) => {
         }else {
           todo.status = 'incomplete'
         }
-    console.log("RBRR")
     let dateString = ''
     for(let i = 0; i < todo.due_date.length; i++) {
         if (todo.due_date[i] !== ',') {

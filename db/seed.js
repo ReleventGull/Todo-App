@@ -3,7 +3,7 @@ const client = require('./index')
 const {dropTables, createTables} = require('./initdb')
 const {createNote, updateNote} = require('./notes')
 const {createTodo, getTodosByUserId, getAllCompleteTodos, updateTodo, deleteTodo} = require('./todos')
-const {createUser, getUserByUsername, getUserById, } = require('./users')
+const {createUser, getUserByUsername, getUserById, createProfilePicture} = require('./users')
 
 
 

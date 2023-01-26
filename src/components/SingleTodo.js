@@ -84,16 +84,16 @@ const SingleTodo = ({token}) => {
                 <button type='submit'>Submit</button>
                 <button onClick={() => setIsEditing(false)}>Cancel</button>
             </form>
-
         </div>
         :
        <div className='singlePage'>
          <div className='sinlgeBox'>
             <div className='todoBox'>
                <div className='details-single'>
+               <div className='emptyDiv'></div>
                 <h1>{todo.name}</h1>
+                
                     <div className='dropDown'>
-                        
                         <div className='dropdown-menu'>
                             <button value={false} onClick={handleSubmit}>Mark As Incomplete</button>
                             <button value={true} onClick={handleSubmit}>Mark As Complete</button>

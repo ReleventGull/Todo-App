@@ -1,7 +1,7 @@
 const express = require("express");
 const userRouter = express.Router();
 const jwt = require("jsonwebtoken");
-const { getUserByUsername, createUser, getUser, getUserById} = require("../db/users");
+const { getUserByUsername, createUser, getUser, getUserById, createProfilePicture} = require("../db/users");
 const {getTodosByUserId} = require('../db/todos')
 const {JWT_SECRET} = process.env
 const {requireUser} = require('./utils')
@@ -53,24 +53,26 @@ userRouter.post('/login', async(req, res, next) => {
         throw error
     }
 })
+userRouter.post('/profilePicture', requireUser, async(req, res, next) => {
+  try {
+    const {img} = req.body
+    const addImage = await createProfilePicture({id: req.user.id, img: img})
+    console.log("Add image result", addImage)
+    res.send({
+      message:"Profile Picture added!",
+      user:addImage
+    })
+  }catch(error) {
+    console.error("There was an error in the api/users userRouter", error)
+    throw error
+  }
+})
 
 userRouter.get('/me', requireUser, async(req, res, next) => {
   try {
-    console.log("I got here")
     const user = await getUserById(req.user.id)
-      const userTodos = await getTodosByUserId(req.user.id)
-      for(let i = 0; i < userTodos.length; i++) {
-        userTodos[i]['status'] = ''
-        if (userTodos[i].isComplete) {
-          userTodos[i].status = 'complete'
-        } else if (new Date(userTodos[i].due_date) - new Date() <= 0) {
-          userTodos[i].status = 'overdue'
-        }else {
-          userTodos[i].status = 'incomplete'
-        }
-      }
-      console.log(userTodos)
-      res.send({user: user, todos:userTodos})
+    console.log('User in the call here', user)
+    res.send(user)
   }catch(error) {
       console.error(error)
   }
