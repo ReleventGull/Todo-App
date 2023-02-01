@@ -33,7 +33,6 @@ const SingleTodo = ({token}) => {
             November: '11',
             December: '12'
         }
-        // console.log(`Right Here: ${arrayDate[arrayDate.length-1]}-${months[arrayDate[0]]}-${arrayDate[1]}`)
         setCurrentDate(`${arrayDate[arrayDate.length-1]}-${months[arrayDate[0]]}-${arrayDate[1]}`)
         setCurrentDesc(singleTodo.description)
         setCurrentName(singleTodo.name)
@@ -47,7 +46,6 @@ const SingleTodo = ({token}) => {
         event.preventDefault()
         const response = await createNote({id: todo.id, token: token, description: noteDescription})
         if(response.error) {
-            console.log("There was an error")
         }else {
             fetchSingleTodo()
         }

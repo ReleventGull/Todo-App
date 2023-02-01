@@ -34,12 +34,10 @@ const Login = ({setToken}) => {
 
     const handleRegister = async (event) => {
         event.preventDefault()
-        console.log(password)
         if(password !== password2) {
             setErrorMessage('Paswords do not match!')
         }
         const response = await registerUser({username : username, password: password})
-       console.log(response)
         if (response.error) {
             setErrorMessage(response.message)
         }else {

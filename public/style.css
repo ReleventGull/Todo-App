@@ -383,8 +383,12 @@ width: 260px;
     margin-bottom: 16px;
     width: 750px;
     min-height: 300px;
-    height: 300px;
+    max-height: 300px;
     border-radius: 20px;
+}
+.todoCard h2 {
+    width: 85%;
+    text-align: center;
 }
 
 .todoCard h1{
@@ -525,9 +529,15 @@ width: 260px;
     display: flex;
     flex-direction: column;
     align-items:  center;
-    width: 600px;
+    min-width: 600px;
+    max-width: 600px;
     height: 400px;
     justify-content: space-around;
+}
+
+.todoBox h3{
+    text-align: center;
+    width: 85%;
 }
 
 
@@ -606,11 +616,11 @@ transition: .3s;
 
 .details-single {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     width: 100%;
 }
+
 .dropDown{
-    position: relative;
     left: 150px;
     background-image: url('./images/dropdown.png');
     background-position: center;

@@ -5,7 +5,6 @@ const client= require('./index')
 
 const createUser = async({username, password}) => {
     try {
-       console.log("I got here but I shouldn't have")
         const {rows:[user]} = await client.query(`
         INSERT INTO users (username, password)
         VALUES ($1, $2)
@@ -15,7 +14,7 @@ const createUser = async({username, password}) => {
         delete user.password
         return user
     }catch(error) {
-        console.log("There was an error creating the user")
+        console.error("There was an error creating the user")
         throw error
     }
 }
@@ -46,7 +45,7 @@ const getUserByUsername  = async (username) => {
     delete user.password
     return user
     }catch(error) {
-        console.log("There was an error getting the user by their username")
+        console.error("There was an error getting the user by their username")
         throw error
     }
 }
@@ -58,10 +57,9 @@ const getUserById  = async (id) => {
     WHERE id=$1;
     `, [id])
     delete user.id
-    console.log("user here", user)
     return user
     }catch(error) {
-        console.log("There was an error getting the user by their username")
+        console.error("There was an error getting the user by their username")
         throw error
     }
 }
@@ -81,7 +79,7 @@ const getUser = async({username, password}) => {
         delete user.password
         return user
     }catch(error) {
-        console.log("There was an error getting the user")
+        console.error("There was an error getting the user")
         throw error
     }
 }

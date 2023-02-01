@@ -38,7 +38,6 @@ const Todos = ({ token }) => {
             setTodos()
             navigate('/login')
         }else {
-            console.log('i ran')
             getUserTodos()
             setValues()
         }

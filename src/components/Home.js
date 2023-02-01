@@ -12,7 +12,7 @@ const Home = ({token}) => {
     
     const fetchUserfromApi = async() => {
         const result = await fetchUser(token)
-        console.log(result)
+
         setUser(result.user)
         setTodoCount(result.todoCount)
         return result

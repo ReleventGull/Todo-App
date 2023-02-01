@@ -13,7 +13,6 @@ export const fetchUserTodos = async({token}) => {
             'Authorization': `Bearer ${token}`
   },
 }).then(response => response.json())
-console.log("This response", response)
     return response
     }catch(error) {
         console.error('There was an error fetching all todos', error)
@@ -34,7 +33,6 @@ export const fetchUser = async (token) => {
 }
  export const loginUser = async ({username, password}) => {
     try {
-        console.log(username, password)
         const response = await fetch(`${BASE_URL}/users/login`, {
             method: 'POST',
             headers: {
@@ -48,7 +46,7 @@ export const fetchUser = async (token) => {
         return response
     }catch(error) {
         console.error('There was an error logging in the user', error)
-        console.log(error)/home/jaron/SelfProjects/ToDo/src/api
+        throw error
     }
 }
 
@@ -84,7 +82,6 @@ export const createTodo = async({name, token, description, due_date}) => {
                 date: due_date
             })
         }).then(result => result.json())
-        console.log(response)
         return response
     }catch(error) {
         console.error("There was an error creating the todo in the api call", error)
@@ -119,7 +116,6 @@ export const getSingleTodo = async({id, token}) => {
             }
         })
         const result = await response.json()
-        console.log(result)
         return result
     }catch(error){
         console.error("There was an error getting the todo by id", error)

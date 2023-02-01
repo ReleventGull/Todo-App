@@ -10,7 +10,6 @@ const {requireUser} = require('./utils')
 notesRouter.post('/', requireUser, async(req, res, next) => {
     try {
         const {todoId} = req.params
-        console.log('The id params', todoId)
         const {description} = req.body
         const checkTodo = await getTodoById({id: todoId})
         if(checkTodo.userId !== req.user.id) {
@@ -21,7 +20,6 @@ notesRouter.post('/', requireUser, async(req, res, next) => {
             })
         }else {
             const createdNote = await createNote({description: description, todoId: todoId})
-            console.log(createdNote)
             res.send(createdNote)
         }
     }catch(error) {

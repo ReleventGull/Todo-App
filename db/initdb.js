@@ -10,7 +10,7 @@ const dropTables = async () => {
         `)
         console.log("Finished dropping tables")
     }catch(error) {
-        console.log("There was an error dropping the tables")
+        console.error("There was an error dropping the tables")
         console.log(error)
         throw error
     }
@@ -43,7 +43,7 @@ const createTables = async() => {
        
         console.log("Complete create tables")
     }catch(error) {
-        console.log("There was an error building tables")
+        console.error("There was an error building tables")
         throw error
     }
 }

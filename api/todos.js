@@ -67,7 +67,7 @@ todoRouter.post('/', requireUser,  async(req, res, next) => {
     const toDo=await createTodo(updateFields)
     res.send(toDo)
     }catch(error) {
-        console.log("There was an error getting all the todos")
+        console.error("There was an error getting all the todos")
         throw error
     }
 })
