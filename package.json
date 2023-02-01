@@ -13,6 +13,9 @@
   },
   "scripts": {
     "start": "react-scripts start index.js",
+    "build" : "react-scripts build",
+    "seed" : "node ./db/seed.js",
+    "server": "node ./index.js",
     "seed:dev": "nodemon ./db/seed.js",
     "server:dev": "nodemon ./index.js",
     "test": "jest --runInBand",

@@ -1,6 +1,10 @@
 const {Client} = require('pg')
-const client = new Client('postgres://localhost:5432/todo')
+const { DATABASE_URL = 'postgres://localhost:5432/todo' } = process.env;
+const client = new Client({
+    connectionString: DATABASE_URL,
+    ssl: process.env.NODE_ENV === 'production' ? {rejectUnauthorized: false} : undefined,
 
+})
 
 module.exports = client
 
