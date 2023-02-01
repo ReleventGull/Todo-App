@@ -6,7 +6,6 @@ const NoteItem = ({note, index, todo, token, fetchSingleTodo}) => {
    
    
     const handleDelete = async() => {
-    console.log(todo.id, note.id)
     const response = await deleteNote({token: token, noteId: note.id, todoId: todo.id})
     fetchSingleTodo()
 }

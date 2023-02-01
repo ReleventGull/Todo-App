@@ -10,7 +10,6 @@ const {requireUser} = require('./utils')
 
 userRouter.post("/register", async (req, res, next) => {
   try {
-    console.log(JWT_SECRET)
     const { username, password } = req.body;
     const existingUser = await getUserByUsername(username);
     if (existingUser) {
@@ -28,7 +27,7 @@ userRouter.post("/register", async (req, res, next) => {
       res.send({message: 'Succes', user: newUser, token:token})
     }
   }catch (error) {
-    console.log("there was an error registering the uesr")
+    console.error("there was an error registering the uesr")
     throw error
     }
 });
@@ -36,7 +35,6 @@ userRouter.post("/register", async (req, res, next) => {
 userRouter.post('/login', async(req, res, next) => {
     try {
         const {username, password} = req.body
-        console.log(username, password)
         const _user = await getUser({username: username, password: password})
         if(!_user) {
             res.status(401).send({
@@ -49,7 +47,7 @@ userRouter.post('/login', async(req, res, next) => {
             res.send({message: 'Succes', user: _user, token:token})
         }
     }catch(error) {
-        console.log("There was an error logging in the user")
+        console.error("There was an error logging in the user")
         throw error
     }
 })
@@ -57,7 +55,7 @@ userRouter.post('/profilePicture', requireUser, async(req, res, next) => {
   try {
     const {img} = req.body
     const addImage = await createProfilePicture({id: req.user.id, img: img})
-    console.log("Add image result", addImage)
+    console.error("Add image result", addImage)
     res.send({
       message:"Profile Picture added!",
       user:addImage

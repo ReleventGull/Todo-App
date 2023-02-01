@@ -10,8 +10,8 @@ const createTodo = async ({name, description, due_date, userId}) => {
         `, [name, description, due_date, userId])
         return todo
     }catch(error) {
-        console.log("There was an error creating the todo")
-        console.log(error)
+        console.error("There was an error creating the todo")
+        throw error
         throw error
     }
 }
@@ -24,7 +24,6 @@ const getTodoById = async ({id}) => {
     LEFT JOIN notes ON todos.id=notes."todoId"
     WHERE todos.id=$1;
     `, [id])
-    console.log(todos)
     let newTodo = {}
     newTodo['notes'] =[]
     newTodo['creatorName'] = todos[0].creatorName
@@ -72,7 +71,7 @@ const getTodosByUserId = async(id) => {
     `, [id])
     return todos
     }catch(error) {
-        console.log("There was an error getting notes and todos")
+        console.error("There was an error getting notes and todos")
         throw error
     }
 }
@@ -81,7 +80,6 @@ const updateTodo = async({id, ...fields}) => {
     const keys = Object.keys(fields)
     const beforeString = keys.map((key, index) => `"${key}"=$${index+2}`)
     const setString = beforeString.join(', ')
-    console.log('fields here', fields)
     try {
      const {rows: [todo]} = await client.query(`
      UPDATE todos
@@ -91,7 +89,7 @@ const updateTodo = async({id, ...fields}) => {
      `,[id, ...Object.values(fields)])
      return todo
     }catch(error) {
-        console.log('There was an error updating the Todo')
+        console.error('There was an error updating the Todo')
         throw error
     }
 }

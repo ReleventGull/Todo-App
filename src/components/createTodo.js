@@ -31,7 +31,7 @@ const CreateTodo = ({token}) => {
         <div className='createPage'>
             <form onSubmit={handleSubmit} className='createForm'>
                 <h2>Name</h2>
-                <input  required class='nameTodo' value={name} onChange={(event) => setName(event.target.value)}></input>
+                <input  maxlength='30'required class='nameTodo' value={name} onChange={(event) => setName(event.target.value)}></input>
                 <h2>Description</h2>
                 <textarea required maxlength='150' value={description} onChange={(event) => setDescription(event.target.value) }></textarea>
                 <input required className='calendar' min={new Date().toISOString().split("T")[0]} value={date} onChange={(event) => setDate(event.target.value)} type='date'></input>
