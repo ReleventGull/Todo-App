@@ -87,7 +87,7 @@ await getTodosByUserId(2)
 // await getAllTodos()
 await initalUpdatedTodos()
 await initialUpdateNotes()
-
+client.end()
 // await getAllCompleteTodos()
 }
 
