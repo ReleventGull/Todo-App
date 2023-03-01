@@ -16,7 +16,7 @@ const dropTables = async () => {
 }
 
 const createTables = async() => {
-    try{
+    try{ 
         console.log("Creating tables...")
         await client.query(`
         CREATE TABLE users (
@@ -42,7 +42,7 @@ const createTables = async() => {
        
         console.log("Complete create tables")
     }catch(error) {
-        console.error("There was an error building tables")
+        console.error("There was an error building tables", error)
         throw error
     }
 }
