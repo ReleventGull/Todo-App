@@ -76,14 +76,12 @@ await updateNote({id: 1, description: 'shithead'})
 
 
 const rebuildDB = async() => {
-client.connect()
 await dropTables()
 await createTables()
-client.end()
 }
 
-
-rebuildDB()
+client.connect()
+rebuildDB().catch(console.error).finally(() => client.end())
 
 
 
