@@ -20,12 +20,12 @@ const App = () => {
                 {token ?
                 <div className='sideNav'>
                 <nav>
-                <Link to='/'><img className='logoutButton' src={home}/></Link>
-                <Link to='todos'><img className='logoutButton' src={note}/></Link>
-                <Link to='createTodo'><img className='logoutButton' src={plus}/></Link>
+                <Link to='/'><img className='logoutButton' src={home}/> <span className='wordReveal'>Home</span></Link>
+                <Link to='todos'><img className='logoutButton' src={note}/> <span className='wordReveal'>Tasks</span></Link>
+                <Link to='createTodo'><img className='logoutButton' src={plus}/> <span className='wordReveal'>Create</span></Link>
                 </nav>
-                <Link className='log out' to='/login' onClick={() => {setToken(''), localStorage.removeItem('token')}}> 
-                <img className='logoutButton' src={logout}/>
+                <Link className='log out' to='/login' onClick={() => {setToken(''), localStorage.removeItem('token')}}> <img className='logoutButton' src={logout}/>
+                <span className='wordReveal'>Home</span>
                 </Link>
                 </div>
                 :
