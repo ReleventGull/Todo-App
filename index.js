@@ -21,10 +21,10 @@ server.use('/healthy', (req, res, next) => {
 })
 server.use('/api', router)
 
-server.use(express.static(path.join(__dirname, 'build')))
-server.get('*', (req, res, next) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'))
-})
+// server.use(express.static(path.join(__dirname, 'build')))
+// server.get('*', (req, res, next) => {
+//     res.sendFile(path.join(__dirname, 'build', 'index.html'))
+// })
 
 
 server.use((error, req, res, next) => {
