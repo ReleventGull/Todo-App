@@ -76,7 +76,6 @@ await updateNote({id: 1, description: 'shithead'})
 
 
 const rebuildDB = async() => {
-client.connect()
 await dropTables()
 await createTables()
 await createInitialUsers()
@@ -87,12 +86,11 @@ await getTodosByUserId(2)
 // await getAllTodos()
 await initalUpdatedTodos()
 await initialUpdateNotes()
-client.end()
 // await getAllCompleteTodos()
 }
 
-
-rebuildDB()
+client.connect()
+rebuildDB().catch(err => console.error(err)).then(() => client.end())
 
 
 
