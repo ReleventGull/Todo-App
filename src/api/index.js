@@ -1,7 +1,6 @@
+const {REACT_APP_BASE_URL = 'http://localhost:4500/api' } = process.env
 
-
-
-const BASE_URL = 'http://localhost:4500/api' || process.env.REACT_APP_BASE_URL
+const BASE_URL = REACT_APP_BASE_URL
 
 export const fetchUserTodos = async({token}) => {
     try {

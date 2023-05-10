@@ -12,7 +12,8 @@ server.use(morgan('dev'))
 server.use(express.json())
 server.use(cors())
 const router = require('./api/index')
-const PORT = 4500
+
+const {PORT = 4500} = process.env
 server.listen(PORT, () => console.log("I'm listening on PORT:", PORT))
 
 server.use('/healthy', (req, res, next) => {
