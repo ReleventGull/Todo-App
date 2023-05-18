@@ -5,16 +5,24 @@
     font-family: Arial, Helvetica, sans-serif;
     
 }
+
 html, body, #root, #app, main {
     height: 100%;
-    
-  }
+    width: 100%;
+    margin: 0;
+    overflow-y: none;
 
+  }
+#app {
+    display: grid;
+    place-items: center;
+}
 body {
     background-image: url('https://wallpaperaccess.com/full/24866.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+
 }
 
 .flex {
@@ -22,12 +30,17 @@ body {
 }
 
 :root {
-    --primary-dark-hsl: 171, 51%, 10%;
-    --primary-light-hsl: 171, 51%, 45%;
-    --primary-extralight-hsl: 171, 51%, 80%;
+    --primary-red: #d64045;
+    --secondary-mint-green: #e9fff9;
+    --photo-blue: #9ed8db;
+    --light-dark-blue: #467599;
+    --very-dark-blue: #1D3354;
    
 }
-
+@font-face {
+    font-family: paci;
+    src: url(./fonts/LobsterTwo-BoldItalic.ttf);
+}
     @keyframes slidein {
         from {
           transform: translatey(0%);
@@ -37,6 +50,7 @@ body {
           transform: translatey(100%);
         }
       }
+
 
 
 /*********HOME PAGE ************************/
@@ -54,10 +68,7 @@ body {
     height: 90%;
     border-radius: 20px;
 }
-.welcomeMessage {
-    color: white;
-    border-bottom: 3px solid white;
-}
+
 .imgContainer {
     margin-top: 20px;
     width: 500px;
@@ -170,55 +181,133 @@ width: 260px;
     align-items: center;
     justify-content: center;
     height: 100%;
-    background-image: url('https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?cs=srgb&dl=pexels-james-wheeler-417074.jpg&fm=jpg');
-    background-size: cover;
-    background-position: center;
+    background-color: var(--secondary-mint-green);
+    box-sizing: border-box;
 }
 
-.login-form {
-    --color: hsl(var(--primary-dark-hsl), .7);
-    width: 800px;
-    height:600px;
-    gap: 30px;
+
+.loginFormContainer {
+    color: black;
+    text-align: center;
+    width: clamp(10rem, 15rem + 50vw, 80rem);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 20rem;
+    background-color: white;
+
+}
+.loginForm {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: var(--color);
-    box-shadow: 0 0 45px 0 var(--color);
-    border-radius: 20px;
+    gap: 2rem;
+    width: 80%;
+    box-sizing: border-box;
+}
+.inputBox {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px;
+    border-bottom: 1px solid black;
+
+    
+}
+.iconBox {
+    display: flex;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 5px;
+
+}
+.iconBox, img {
+    height: 35px;
+}
+.iconBox input, input::placeholder {
+    border: none;
+    outline: none;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    color: black;
+    font-size: 1em;
+}
+.loginButton {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--light-dark-blue);
+    color: white;
+    border: none;
+    font-size: 1.3em;
+    box-sizing: border-box;
 }
 
-.login-form input{
-    width: 400px;
-    height: 50px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    background-color: hsl(var(--primary-extralight-hsl), .3);
-    color: white;
-    transition: .3s;
+.welcomeTitle {
+    font-size: 3rem;
+    font-family: paci;
 }
-.login-form input:focus {
-    transition: .3s;
-}
-.input-forms {
+
+.loginImageContainer {
+    width: 50%;
+    height: 100%;
+    color: black;
+    box-sizing: border-box;
+    background-color: var(--light-dark-blue);
     display: flex;
     flex-direction: column;
 }
 
-.login-form button {
-    width: 400px;
-    height: 50px;
-    background-color: hsl(var(--primary-light-hsl), .6);
-    border-radius: 10px;
-    transition: .3s;
+.loginImage {
+    box-sizing: border-box;
+}
+.imageContainerLogin {
+    height: 80%;
+    width: 100%;
+    display: grid;
+    place-items: center;
+}
+.cycleImage {
+    width: 100%;
+    height: 100%
+}
+.imageMesage {
+    width: 100%;
+    height: 10%;
+    text-align: center;
+    color: white;;
 }
 
-.login-form button:hover {
-    background-color: hsl(var(--primary-light-hsl), .9);
-    transition: .3s;
+.cirlceCyle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: white;
+    cursor: pointer;
 }
+
+.imageSelector {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: .4em;
+    height: 5%;
+}
+
+@media screen and (max-width: 800px) {
+    .loginFormContainer {
+        width: 100%;
+        height: 100vh;
+    }
+}
+
+
+
 /******************SIDE NAV*****************/
 .sideNav {
     color: white;
@@ -280,10 +369,6 @@ width: 260px;
     height: 100px;
     size: 100px;
 }
-
-
-
-
 
 
 

@@ -2,7 +2,23 @@ import React, {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {loginUser, registerUser} from '../api/index'
 
-
+const obj = [
+    {
+        id: 1,
+        img: '/images/folder.png',
+        msg: "Store your todos in an easy-to-remember fashion!"
+    },
+    {
+        id: 2,
+        img: '/images/edit.png',
+        msg: "Edit your todo for mistakes or completion status!"
+    },
+    {
+        id: 1,
+        img: '/images/trash.png',
+        msg: "Clear space in your todo library by deleting your todo!"
+    }
+]
 
 
 
@@ -14,6 +30,7 @@ const Login = ({setToken}) => {
     const [password, setPassword] = useState('')
     const [password2, setPassword2] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
+    const [currentImg, setCurrentImage ] = useState(obj[0])
     const navigate = useNavigate()
     
     const handleLogin = async(event) => {
@@ -52,33 +69,24 @@ const Login = ({setToken}) => {
 
     return (
         <div className='login-page'>
-            <form onSubmit={ currentAction =='register' ? handleRegister : handleLogin} className='login-form'>
-            <h1>Welcome</h1>
-                <div className='input-forms'>
-                <label>Username</label>
-                <input type='username' required value={username} onChange={(event) => setUsername(event.target.value)}/>
+                <div className='loginFormContainer'>
+                    <form className='loginForm'>
+                    <h1 className='welcomeTitle'>Welcome Back</h1>
+                        <div className='inputBox'>
+                            <div className='iconBox'>
+                                <img className='loginImage' src='/images/icons8-person-60.png'/>
+                                <input placeholder='Username...'></input>
+                            </div>
+                        </div>
+                        <div className='inputBox'>
+                            <div className='iconBox'>
+                                <img className='loginImage' src='/images/icons8-lock-50.png'/>
+                                <input placeholder='Password...'></input>
+                            </div>
+                        </div>
+                        <button className='loginButton'>Login</button>
+                    </form >
                 </div>
-                
-                <div className='input-forms'>
-                <label>Password</label>
-                <input type='password' required value={password} onChange={(event) => setPassword(event.target.value)}/>
-                </div>
-               
-               {currentAction == 'register' ? 
-                <div className='input-forms'>
-                <label>Confirm Password</label>
-                <input type='password' required value={password2} onChange={(event) => setPassword2(event.target.value)}/>
-                </div>
-                : 
-                null
-                }
-               
-                
-                <button type='Submit'>{currentAction == 'register' ? 'Register' : 'Login'}</button>
-                <h3>{errorMessage}</h3>
-            </form> 
-            <h3>{currentAction == 'register' ? 'Have an accout?' : "Don't have an account?"}</h3>
-                <button onClick={currentAction == 'register' ? () => setCurrentAction('login') : () => setCurrentAction('register')}>{currentAction == 'register' ? 'Login Here' : 'Register Here'}</button>
         </div>
 
     )
