@@ -84,7 +84,19 @@ const Login = ({setToken}) => {
                                 <input placeholder='Password...'></input>
                             </div>
                         </div>
+                        {currentAction !== 'register'? null : 
+                        <div className='inputBox'>
+                            <div className='iconBox'>
+                                <img className='loginImage' src='/images/icons8-lock-50.png'/>
+                                <input placeholder='Confirm Password...'></input>
+                            </div>
+                        </div>
+                        }
                         <button className='loginButton'>Login</button>
+                        <h3>{currentAction == 'register' ? 
+                        <span>Have an account? <span onClick={() => setCurrentAction('login')}className='linkSpan'>Login</span></span>
+                        : 
+                        <span>Don't have an account? <span onClick={() => setCurrentAction('register')} className='linkSpan' >Sign up</span></span>}</h3>
                     </form >
                 </div>
         </div>
