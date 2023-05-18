@@ -181,6 +181,7 @@ width: 260px;
     align-items: center;
     justify-content: center;
     height: 100%;
+    width: 100%;
     background-color: var(--secondary-mint-green);
     box-sizing: border-box;
 }
@@ -192,7 +193,8 @@ width: 260px;
 .loginFormContainer {
     color: black;
     text-align: center;
-    width: clamp(10rem, 15rem + 50vw, 80rem);
+    width: 50rem;
+    height: 40rem;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
@@ -216,8 +218,11 @@ width: 260px;
     box-sizing: border-box;
     padding: 6px;
     border-bottom: 1px solid black;
-
-    
+    transition: .2s;
+}
+.errorMessage {
+    transition: .2s;
+    color: var(--primary-red)
 }
 .iconBox {
     display: flex;

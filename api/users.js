@@ -18,7 +18,13 @@ userRouter.post("/register", async (req, res, next) => {
         name: "InvalidUsername",
         message: "A user by that username already exists",
       });
-    }else {
+    }else if(!username || !password){
+      res.status(401).send({
+        error: "Missing Fields",
+        name: "InvalidCredentials",
+        message: "Please fill in all the fields",
+      });
+    }else{
       const newUser = await createUser({
         username: username,
         password: password,
