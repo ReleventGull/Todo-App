@@ -319,77 +319,55 @@ width: 260px;
 
 
 /******************SIDE NAV*****************/
-.sideNav {
-    color: black;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-sizing: border-box;
-    margin: 0;
-    height: 100%;
-    overflow-y: hidden;
-    overflow-x: hidden;
+.navbar {
+    transition: .5s;
+    width: 6rem;
+    height: 100vh;
     position: fixed;
+    background-color: white;
     z-index: 1
 }
 
-.sideNav:hover > nav a span, .sideNav:hover > a span  {
-    scale: 1;
-    transition: .3s;
-    font-size: 1em;
-}
-
-.wordReveal {
-    transition: .2s;
-    scale: 0;
-    color: black;
-
-}
-
-.sideNav nav {
-    display:flex;
-    flex-direction: column;
-    height: 50%;
-}
-
-.sideNav a {
+.navbar-nav {
+    list-style: none;
+    height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 2em;
-    text-align: center;
-    font-size: 1.2em;
+}
+.nav-item {
+    width: 100%;
+}
+.nav-item img {
+    margin: 0 2rem
+}
+.nav-item a {
+    display: flex;;
+    align-items: center;
     text-decoration: none;
+    height: 5rem;
+}
+.wordReveal {
     transition: .3s;
-    padding: 1.5rem .5rem 1.5rem .5rem;
-    width: 50px;
-}
-.logoutButton {
-    width: 50px;
-    height: 50px;
-}
-.sideNav:hover  a {
-    width: 200px;
-}
-.sideNav  a:hover {
-    width: 200px;
-    background-color: lightgray;
+    opacity: 0;
+    color: black;
 }
 
-.sideNav a:hover > span {
-    color: black
+.navbar:hover > ul li a span {
+    transition: .3s;
+    opacity: 1;
 }
-.sideNav a:hover > img {
-    filter: invert(0)
-}
-
-.logoutWord {
-    transition: .2s;
-    scale: 0;
-    color: black
+.navbar:hover {
+    transition: .5s;
+    width: 13rem
 }
 
-
+.nav-item:hover {
+    background-color: lightblue;
+}
+.nav-item:last-child {
+    margin-top: auto
+}
 
 /************************TODOs ********************/
 .todoPage {
@@ -397,7 +375,7 @@ width: 260px;
     flex-direction: column;
     height: 100%;
     width: 100%;
-    margin-left: 66px;
+    margin-left: 6rem;
     background-color: var(--light-dark-blue);
 }
 .filterHeader {
