@@ -14,16 +14,9 @@ html, body, #root, #app, main {
 
   }
 #app {
-    display: grid;
-    place-items: center;
+    display: flex;
 }
-body {
-    background-image: url('https://wallpaperaccess.com/full/24866.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
 
-}
 
 .flex {
     display: flex;
@@ -60,9 +53,10 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow-y: scroll;
 }
 .profileContainer {
-    background-color: hsl(var(--primary-dark-hsl), .6);
+    background-color: var(--very-dark-blue);
     width: 70%;
     padding: 20px;
     height: 90%;
@@ -326,64 +320,73 @@ width: 260px;
 
 /******************SIDE NAV*****************/
 .sideNav {
-    color: white;
-    background-color: hsl(var(--primary-dark-hsl));
+    color: black;
+    background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 100px;
+    box-sizing: border-box;
     margin: 0;
-    position: fixed;
     height: 100%;
-    transition: .2s
+    overflow-y: hidden;
+    overflow-x: hidden;
+    position: fixed;
+    z-index: 1
 }
-.sideNav:hover {
-    width: 250px;
-    transition: .2s
-}
-.sideNav:hover > nav a span {
-    display: inline;
-    font-size: 2.3em;
+
+.sideNav:hover > nav a span, .sideNav:hover > a span  {
+    scale: 1;
+    transition: .3s;
+    font-size: 1em;
 }
 
 .wordReveal {
-    display: none;
-    color:white
+    transition: .2s;
+    scale: 0;
+    color: black;
+
 }
 
 .sideNav nav {
     display:flex;
     flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 50px;
     height: 50%;
 }
 
 .sideNav a {
     display: flex;
     align-items: center;
+    gap: 2em;
     text-align: center;
-    color: white;
     font-size: 1.2em;
     text-decoration: none;
-    width: 100%;
-    transition: .3s
+    transition: .3s;
+    padding: 1.5rem .5rem 1.5rem .5rem;
+    width: 50px;
 }
-.sideNav a:hover {
-    background-color: floralwhite;
-    transition: .3s
+.logoutButton {
+    width: 50px;
+    height: 50px;
 }
+.sideNav:hover  a {
+    width: 200px;
+}
+.sideNav  a:hover {
+    width: 200px;
+    background-color: lightgray;
+}
+
 .sideNav a:hover > span {
     color: black
 }
 .sideNav a:hover > img {
     filter: invert(0)
 }
-.logoutButton {
-    filter: invert(1);
-    height: 100px;
-    size: 100px;
+
+.logoutWord {
+    transition: .2s;
+    scale: 0;
+    color: black
 }
 
 
@@ -394,6 +397,8 @@ width: 260px;
     flex-direction: column;
     height: 100%;
     width: 100%;
+    margin-left: 66px;
+    background-color: var(--light-dark-blue);
 }
 .filterHeader {
     position: fixed;
@@ -512,7 +517,6 @@ width: 260px;
 .todoCard h1{
     text-align: center;
     width: 100%;
- 
 }
 
 .todo-icons {
